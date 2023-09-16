@@ -1,0 +1,10 @@
+.header {
+  margin-top: 45px;
+  border-bottom: 1px;
+  border-color: #545454;
+}
+
+.header__image {
+  width: 173px;
+  height: 33px;
+}
