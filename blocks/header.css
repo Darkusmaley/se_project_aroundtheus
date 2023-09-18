@@ -1,15 +1,17 @@
 .header {
   margin-top: 45px;
+  border-bottom: solid 1px rgb(84 84 84 / 0.7);
 }
 
 .header__image {
   width: 173px;
   height: 33px;
+  margin-bottom: 41px;
 }
 
 @media screen and (max-width: 480px) {
   .header {
-    width: 320px;
+    max-width: 320px;
   }
 
   .header__image {

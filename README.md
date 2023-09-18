@@ -1,21 +1,25 @@
 # Project 3: Around The U.S.
 
-### Overview  
+### Overview
 
-* Intro  
-* Figma  
-* Images  
-  
+- Intro
+- Project Features
+- Github project link
+
 **Intro**
-  
-This project is made so all the elements are displayed correctly on popular screen sizes. We recommend investing more time in completing this project, since it's more difficult than previous ones.  
-  
-**Figma**  
-  
-* [Link to the project on Figma](https://www.figma.com/file/ii4xxsJ0ghevUOcssTlHZv/Sprint-3%3A-Around-the-US?node-id=0%3A1)  
-  
-**Images**  
-  
-The way you'll do this at work is by exporting images directly from Figma — we recommend doing that to practice more. Don't forget to optimize them [here](https://tinypng.com/), so your project loads faster. 
-  
-Good luck and have fun!
+
+This project is a display of the usage of the display:grid; property to align content on popular screen sizes.
+
+**Project features**
+
+-By using the property grid, and its other associate properties, this project displays responsive design. The content is contained in grid-template-columns allowing for proper viewing on different screen sizes.
+
+-Flex box was used to propeerly align items at asmaller screen size to correct changes made to the project layout due to changes in screen size.
+
+-Media queries allowed for the optimization of the project between the indicated screen sizes by setting styles for the breakpoints were screen changing would occur.
+
+-BEM Flat Structure allowed for the proper and seperate organization of all the css files. The seperation of css files into different blocks allows for consise viewing and simple organization.
+
+**Github project link**
+
+- [Link to the project on Github]
