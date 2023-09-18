@@ -6,14 +6,16 @@
 
 .profile__info {
   display: grid;
+  align-items: center;
   grid-template-areas:
     "title button"
     "description description";
   grid-template-columns: minmax(auto, 373px) auto;
+  gap: 18px;
 }
 
 .profile__title {
-  font-family: "Inter";
+  font-family: "Inter", "Arial", sans-serif;
   font-size: 42px;
   font-weight: 500;
   line-height: 48px;
@@ -37,11 +39,19 @@
   width: 24px;
   height: 24px;
   border-color: white;
-  grid-area: button;
+  color: grey;
+}
+
+.profile__edit-button:hover {
+  background: transparent url(../images/Vectorinactivepencil.svg) center
+    no-repeat;
+  width: 24px;
+  height: 24px;
+  border-color: grey;
 }
 
 .profile__description {
-  font-family: "Inter";
+  font-family: "Inter", "Arial", sans-serif;
   font-size: 18px;
   font-weight: 400;
   line-height: 22px;
@@ -52,10 +62,74 @@
 }
 
 .profile__add-button {
-  background: transparent url(../images/plus\ sign.svg) center no-repeat;
+  background: transparent url(../images/Vectorplus.svg) center no-repeat;
   width: 150px;
   height: 50px;
   border-color: white;
   margin-left: auto;
   padding: 0;
+}
+
+.profile__add-button:hover {
+  background: transparent url(../images/Vectorinactiveplus.svg) center no-repeat;
+  width: 150px;
+  height: 50px;
+  border-color: grey;
+}
+
+@media screen and (max-width: 480px) {
+  .profile {
+    flex-direction: column;
+    max-width: 282px;
+  }
+
+  .profile__info {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    grid-template-columns: minmax(auto, 282px) auto;
+    gap: 10px;
+  }
+
+  .profile__title {
+    font-size: 22px;
+  }
+
+  .profile__image{
+    margin-right: 0;
+    margin-bottom: 30px;
+  }
+
+  .profile__description {
+    font-size: 14px;
+  }
+
+  .profile__add-button {
+    margin: 0;
+    width: 280px;
+    margin-top: 36px;
+  }
+
+  .profile__add-button:active {
+    margin: 0;
+    width: 280px;
+    margin-top: 36px;
+    transition: 0.5s 1s ease-in-out;
+  }
+
+  .profile__edit-button {
+    background: transparent url(../images/Vectorpencil.svg) center no-repeat;
+    width: 18px;
+    height: 18px;
+    border-color: white;
+  }
+
+  .profile__edit-button:active {
+    background: transparent url(../images/Vectorinactivepencil.svg) center
+      no-repeat;
+    width: 24px;
+    height: 24px;
+    border-color: grey;
+    transition: 0.5s 1s ease-in-out;
+  }
 }
