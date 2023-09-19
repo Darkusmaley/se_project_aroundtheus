@@ -15,10 +15,10 @@
 
 @media screen and (max-width: 480px) {
   .footer {
-    padding-left: 19px;
     padding-bottom: 36px;
     padding-top: 48px;
     max-width: 282px;
+    margin: 0 auto;
   }
 
   .footer__copyright {
