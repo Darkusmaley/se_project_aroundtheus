@@ -36,10 +36,11 @@
   width: 21px;
   height: 18px;
   border: none;
+  min-width: 21px;
 }
 
 .card__like-button:hover {
   opacity: 0.5;
-  transition: 0 1s ease-in-out;
+  transition: 0s 1s ease-in-out;
   cursor: pointer;
 }
