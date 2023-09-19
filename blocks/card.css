@@ -5,9 +5,8 @@
 }
 
 .card__image {
-  /* width: 282px;
-    height: 282px; */
   object-fit: cover;
+  min-height: 282px;
 }
 
 .card__description {
