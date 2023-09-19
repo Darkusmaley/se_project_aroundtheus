@@ -23,3 +23,4 @@ This project is a display of the usage of the display:grid; property to align co
 **Github project link**
 
 - [Link to the project on Github]
+  **https://github.com/Darkusmaley/se_project_aroundtheus.git**

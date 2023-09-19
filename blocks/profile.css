@@ -23,6 +23,10 @@
   text-align: left;
   grid-area: title;
   margin: 0;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+  max-width: 373px;
 }
 
 .profile__image {
@@ -56,6 +60,10 @@
   text-align: left;
   grid-area: description;
   margin: 0;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+  max-width: 187px;
 }
 
 .profile__add-button {
@@ -63,7 +71,7 @@
   width: 150px;
   height: 50px;
   border: solid 2px #fff;
-  margin-left: 85px;
+  margin-left: 165px;
   padding: 0;
 }
 
@@ -76,6 +84,7 @@
   .profile {
     flex-direction: column;
     max-width: 282px;
+    padding: 0;
   }
 
   .profile__info {
@@ -83,7 +92,7 @@
     flex-wrap: wrap;
     justify-content: center;
     grid-template-columns: minmax(auto, 282px) auto;
-    gap: 14px 10px;
+    gap: 0px 10px;
   }
 
   .profile__title {
