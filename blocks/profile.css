@@ -1,5 +1,4 @@
 .profile {
-  padding-top: 40px;
   display: flex;
   align-items: center;
 }
@@ -93,6 +92,7 @@
     justify-content: center;
     grid-template-columns: minmax(auto, 282px) auto;
     gap: 0px 10px;
+    max-width: 300px;
   }
 
   .profile__title {
