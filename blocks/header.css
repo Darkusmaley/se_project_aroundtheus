@@ -1,5 +1,6 @@
 .header {
   margin-top: 45px;
+  margin-bottom: 40px;
   border-bottom: solid 1px rgb(84 84 84 / 0.7);
 }
 
@@ -20,5 +21,6 @@
     width: 126px;
     height: 24px;
     margin-left: 27px;
+    margin-bottom: 32px;
   }
 }
