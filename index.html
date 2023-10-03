@@ -36,70 +36,7 @@
           <button type="button" class="profile__add-button"></button>
         </section>
         <section class="cards page__section">
-          <ul class="cards__list">
-            <li class="card">
-              <img
-                src="images/yosemite-valley.png"
-                alt="yosemite"
-                class="card__image"
-              />
-              <div class="card__description">
-                <h2 class="card__heading">Yosemite Valley</h2>
-                <button type="button" class="card__like-button"></button>
-              </div>
-            </li>
-            <li class="card">
-              <img
-                src="images/lake-louise.png"
-                alt="lake louise"
-                class="card__image"
-              />
-              <div class="card__description">
-                <h2 class="card__heading">Lake Louise</h2>
-                <button type="button" class="card__like-button"></button>
-              </div>
-            </li>
-            <li class="card">
-              <img
-                src="images/bald-mountains.png"
-                alt="bald-mountains"
-                class="card__image"
-              />
-              <div class="card__description">
-                <h2 class="card__heading">Bald Mountains</h2>
-                <button type="button" class="card__like-button"></button>
-              </div>
-            </li>
-            <li class="card">
-              <img src="images/latemar.png" alt="latemar" class="card__image" />
-              <div class="card__description">
-                <h2 class="card__heading">Latemar</h2>
-                <button type="button" class="card__like-button"></button>
-              </div>
-            </li>
-            <li class="card">
-              <img
-                src="images/vanoise-national-park.png"
-                alt="vanoise National"
-                class="card__image"
-              />
-              <div class="card__description">
-                <h2 class="card__heading">Vanoise National Park</h2>
-                <button type="button" class="card__like-button"></button>
-              </div>
-            </li>
-            <li class="card">
-              <img
-                src="images/lago-di-braies.png"
-                alt="lago di braies"
-                class="card__image"
-              />
-              <div class="card__description">
-                <h2 class="card__heading">Lago di Braies</h2>
-                <button type="button" class="card__like-button"></button>
-              </div>
-            </li>
-          </ul>
+          <ul class="cards__list"></ul>
         </section>
       </main>
       <footer class="footer page__section">
@@ -107,12 +44,16 @@
       </footer>
       <div class="modal" id="profile-edit-modal">
         <div class="modal__container">
-          <button class="modal__close-button" id="profile-edit-close-button"></button>
+          <button
+            class="modal__close-button"
+            id="profile-edit-close-button"
+          ></button>
           <h2 class="modal__title">Edit profile</h2>
           <form class="modal__form">
             <div class="modal__form-name">
               <input
                 type="text"
+                name="name"
                 id="name"
                 class="modal__form-text"
                 placeholder="Name"
@@ -121,6 +62,7 @@
             <div class="modal__form-description">
               <input
                 type="text"
+                name="description"
                 id="description"
                 class="modal__form-text"
                 placeholder="Description"
@@ -130,6 +72,16 @@
           </form>
         </div>
       </div>
+
+      <template class="card-template" id="template">
+        <li class="card">
+          <img src="" alt="" class="card__image" />
+          <div class="card__description">
+            <h2 class="card__heading"></h2>
+            <button type="button" class="card__like-button"></button>
+          </div>
+        </li>
+      </template>
       <script src="./scripts/index.js"></script>
     </div>
   </body>
