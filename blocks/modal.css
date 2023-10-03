@@ -53,6 +53,7 @@
 
 .modal__close-button:hover {
   cursor: pointer;
+  opacity: 0.5;
 }
 
 .modal__input {
@@ -95,6 +96,7 @@
 
 .modal__form-button:hover {
   cursor: pointer;
+  opacity: 0.5;
 }
 
 @media screen and (max-width: 480px) {
@@ -133,10 +135,6 @@
     padding: 0;
   }
 
-  .modal__close-button:hover {
-    cursor: pointer;
-  }
-
   .modal__form {
     max-width: 238px;
   }
@@ -169,9 +167,5 @@
     line-height: 17px;
     letter-spacing: 0em;
     text-align: center;
-  }
-
-  .modal__form-button:hover {
-    cursor: pointer;
   }
 }

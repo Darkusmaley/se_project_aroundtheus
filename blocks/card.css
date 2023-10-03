@@ -3,6 +3,7 @@
   flex-direction: column;
   border-radius: 10px;
   max-height: 362px;
+  overflow: hidden;
 }
 
 .card__image {
@@ -42,6 +43,6 @@
 
 .card__like-button:hover {
   opacity: 0.5;
-  transition: 0s 1s ease-in-out;
+  transition: 0.5s 0s ease-in-out;
   cursor: pointer;
 }
