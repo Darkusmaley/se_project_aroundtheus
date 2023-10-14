@@ -9,12 +9,19 @@
   width: 100%;
   justify-content: center;
   align-items: center;
-  display: none;
+  visibility: hidden;
+  opacity: 0;
+  transition: visibility 0s linear 0.5s, opacity 0.5s linear;
 }
 
 .modal_opened {
   display: flex;
+  visibility: visible;
+  opacity: 1;
+  transition-delay: 0s;
 }
+
+/* How do i stop the modal from jumping to the left corner when it closes? */
 
 .modal__container {
   position: relative;
@@ -25,6 +32,12 @@
   width: 100%;
   border-radius: 10px;
   padding: 36px;
+}
+
+.modal__container-preview {
+  position: relative;
+  max-height: 540px;
+  color: #fff;
 }
 
 .modal__title {
@@ -41,7 +54,7 @@
   position: absolute;
   top: -45px;
   right: -45px;
-  background-color: #000;
+  background-color: transparent;
   background-image: url(../images/Close\ Icon.svg);
   background-repeat: no-repeat;
   background-size: contain;
@@ -99,6 +112,20 @@
   opacity: 0.5;
 }
 
+.modal__preview {
+  max-width: 75vw;
+  max-height: 75vh;
+}
+
+.modal__image-preview-text {
+  font-family: "Inter", "Arial", sans-serif;
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 15px;
+  letter-spacing: 0em;
+  text-align: left;
+}
+
 @media screen and (max-width: 480px) {
   .modal__container {
     position: relative;
@@ -125,7 +152,7 @@
   .modal__close-button {
     position: absolute;
     right: 0px;
-    background-color: black;
+    background-color: transparent;
     background-image: url(../images/Close\ Icon.svg);
     background-repeat: no-repeat;
     background-size: contain;

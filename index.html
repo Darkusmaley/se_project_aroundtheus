@@ -33,7 +33,11 @@
             ></button>
             <p class="profile__description">Explorer</p>
           </div>
-          <button type="button" class="profile__add-button"></button>
+          <button
+            type="button"
+            class="profile__add-button"
+            id="profile-add-button"
+          ></button>
         </section>
         <section class="cards page__section">
           <ul class="cards__list"></ul>
@@ -50,7 +54,7 @@
             type="button"
           ></button>
           <h2 class="modal__title">Edit profile</h2>
-          <form class="modal__form">
+          <form class="modal__form" id="profile-edit-form">
             <div class="modal__form-name">
               <input
                 type="text"
@@ -76,9 +80,66 @@
         </div>
       </div>
 
+      <div class="modal" id="new-card-modal">
+        <div class="modal__container">
+          <button
+            class="modal__close-button"
+            id="add-card-close-button"
+            type="button"
+          ></button>
+          <h2 class="modal__title">New place</h2>
+          <form class="modal__form" id="add-card-form">
+            <input
+              id="card-title"
+              type="text"
+              name="title"
+              class="modal__input"
+              placeholder="Title"
+              required
+            />
+
+            <input
+              type="text"
+              name="link"
+              id="image-link"
+              class="modal__input"
+              placeholder="Image link"
+              required
+            />
+
+            <button class="modal__form-button" type="submit">Create</button>
+          </form>
+        </div>
+      </div>
+
+      <div class="modal" id="image-preview-modal">
+        <div class="modal__container-preview">
+          <button
+            class="modal__close-button"
+            id="preview-close-button"
+            type="button"
+          ></button>
+
+          <img
+            type="image"
+            name="link"
+            id="image-preview"
+            class="modal__preview" 
+            src=""
+            alt=""
+          />
+          <h4 class="modal__image-preview-text" id="image-preview-caption"></h4>
+        </div>
+      </div>
+
       <template class="card-template" id="template">
         <li class="card">
-          <img src="" alt="" class="card__image" />
+          <button
+            type="button"
+            class="card__delete-button"
+            id="card-delete-button"
+          ></button>
+          <img src="" alt="" class="card__image" id="" />
           <div class="card__description">
             <h2 class="card__heading"></h2>
             <button type="button" class="card__like-button"></button>
