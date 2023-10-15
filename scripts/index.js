@@ -59,6 +59,13 @@ const cardTemplate =
 // Image Preview Modal
 
 const imagePreviewModal = document.querySelector("#image-preview-modal");
+const imagePreviewCloseBtn = document.querySelector("#preview-close-button");
+const imagePreview = document.querySelector("#image-preview");
+const imagePreviewCaption = document.querySelector("#image-preview-caption");
+
+//Buttons
+
+const closeButtons = document.querySelectorAll(".modal__close-button");
 
 //Event handlers
 
@@ -66,7 +73,7 @@ function handleProfileEditSubmit(e) {
   e.preventDefault();
   profileTitle.textContent = profileTitleInput.value;
   profileDescription.textContent = profileDescriptionInput.value;
-  closePopup();
+  closeModal(profileEditModal);
 }
 
 function handleAddCardSubmit(evt) {
@@ -74,7 +81,8 @@ function handleAddCardSubmit(evt) {
   const name = cardTitleInput.value;
   const link = cardImageInput.value;
   renderCard({ name, link });
-  closePopup();
+  evt.target.reset();
+  closeModal(addCardModal);
 }
 
 //Functions
@@ -85,9 +93,6 @@ function getCardElement(cardData) {
   const cardTitleEl = cardElement.querySelector(".card__heading");
   const likeButton = cardElement.querySelector(".card__like-button");
   const cardDeleteButton = cardElement.querySelector("#card-delete-button");
-  const imagePreviewCloseBtn = document.querySelector("#preview-close-button");
-  const imagePreview = document.querySelector("#image-preview");
-  const imagePreviewCaption = document.querySelector("#image-preview-caption");
   cardDeleteButton.addEventListener("click", () => {
     cardElement.remove();
   });
@@ -97,44 +102,28 @@ function getCardElement(cardData) {
   });
 
   cardImageEl.addEventListener("click", () => {
-    openImagePreviewModal();
+    openModal(imagePreviewModal);
     imagePreview.src = cardData.link;
-    imagePreviewCaption.innerHTML = cardData.name;
+    imagePreviewCaption.textContent = cardData.name;
   });
-  imagePreviewCloseBtn.addEventListener("click", () => {
-    imagePreviewModal.classList.remove("modal_opened");
-  });
+
   cardTitleEl.textContent = cardData.name;
   cardImageEl.alt = cardData.name;
   cardImageEl.src = cardData.link;
   return cardElement;
 }
 
-function openModal() {
-  profileEditModal.classList.add("modal_opened");
+function openModal(modal) {
+  modal.classList.add("modal_opened");
 }
 
-function openNewCardModal() {
-  addCardModal.classList.add("modal_opened");
-}
-
-function openImagePreviewModal() {
-  imagePreviewModal.classList.add("modal_opened");
-}
-
-function closePopup() {
-  profileEditModal.classList.remove("modal_opened");
-  addCardModal.classList.remove("modal_opened");
+function closeModal(modal) {
+  modal.classList.remove("modal_opened");
 }
 
 function fillProfileForm() {
   profileTitleInput.value = profileTitle.textContent;
   profileDescriptionInput.value = profileDescription.textContent;
-}
-
-function openEditProfileModal() {
-  fillProfileForm();
-  openModal();
 }
 
 function openCardModal() {
@@ -146,22 +135,24 @@ function renderCard(cardData) {
   cardListEl.prepend(cardElement);
 }
 
+closeButtons.forEach((button) => {
+  const modal = button.closest(".modal");
+  button.addEventListener("click", () => closeModal(modal));
+});
+
 // Event listeners
 
 profileEditBtn.addEventListener("click", function () {
-  openEditProfileModal();
+  openModal(profileEditModal);
+  fillProfileForm();
 });
 
 newCardAddButton.addEventListener("click", function () {
-  openNewCardModal();
+  openModal(addCardModal);
 });
 
-profileEditCloseBtn.addEventListener("click", () => {
-  closePopup();
-});
-
-newCardCloseBtn.addEventListener("click", () => {
-  closePopup();
+imagePreview.addEventListener("click", () => {
+  openModal(imagePreviewModal);
 });
 
 profileEditForm.addEventListener("submit", handleProfileEditSubmit);
@@ -169,7 +160,3 @@ profileEditForm.addEventListener("submit", handleProfileEditSubmit);
 cardAddForm.addEventListener("submit", handleAddCardSubmit);
 
 initialCards.forEach((cardData) => renderCard(cardData));
-
-//Card like-button
-
-const likeButtons = document.querySelectorAll(".card__like-button");

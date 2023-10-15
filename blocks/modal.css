@@ -11,17 +11,18 @@
   align-items: center;
   visibility: hidden;
   opacity: 0;
-  transition: visibility 0s linear 0.5s, opacity 0.5s linear;
+  transition: visibility 0s linear 0s, opacity 0.5s linear;
 }
 
 .modal_opened {
   display: flex;
+  position: fixed;
   visibility: visible;
   opacity: 1;
-  transition-delay: 0s;
+  transition-delay: 0.5s;
 }
 
-/* How do i stop the modal from jumping to the left corner when it closes? */
+/* I cant stip the modal from jumping to the left.I am not sure how to do this and i cant find a answer anywhere */
 
 .modal__container {
   position: relative;
