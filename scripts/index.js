@@ -157,15 +157,14 @@ window.addEventListener("keydown", function (event) {
     closeModal(profileEditModal);
     closeModal(addCardModal);
     closeModal(imagePreviewModal);
-    
   }
 });
 
 modalOverlay.addEventListener("click", function (evt) {
-  if(evt.target === modalOverlay){
-  closeModal(modalOverlay.closest(".modal"));
-  ;}
-// cant quite figure out how to get the addCardModal and imagePreviewModal to close by clicking. hlep would be appreciated
+  if (evt.target === modalOverlay) {
+    closeModal(modalOverlay.closest(".modal"));
+  }
+  // cant quite figure out how to get the addCardModal and imagePreviewModal to close by clicking. hlep would be appreciated
   console.log("chick");
 });
 
