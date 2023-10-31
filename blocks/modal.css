@@ -111,7 +111,7 @@
 }
 
 
-.modal__button_disabled{
+.modal__button-disabled{
   border: 1px solid #000000;
   background-color: transparent;
   color: #000000;
