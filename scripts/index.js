@@ -120,10 +120,14 @@ function getCardElement(cardData) {
 
 function openModal(modal) {
   modal.classList.add("modal_opened");
+  document.addEventListener("keydown", closeModalByEsc);
+  modal.addEventListener("mousedown", closeModalOnRemoteClick);
 }
 
 function closeModal(modal) {
   modal.classList.remove("modal_opened");
+  document.removeEventListener("keydown", closeModalByEsc);
+  modal.removeEventListener("mousedown", closeModalOnRemoteClick);
 }
 
 function fillProfileForm() {
@@ -141,6 +145,19 @@ closeButtons.forEach((button) => {
   button.addEventListener("click", () => closeModal(modal));
 });
 
+function closeModalByEsc(evt) {
+  if (evt.key === "Escape") {
+    const openedModal = document.querySelector(".modal_opened");
+    closeModal(openedModal);
+  }
+}
+
+function closeModalOnRemoteClick(evt) {
+  if (evt.target === evt.currentTarget) {
+    closeModal(evt.currentTarget);
+  }
+}
+
 // Event listeners
 
 profileEditBtn.addEventListener("click", function () {
@@ -152,21 +169,13 @@ newCardAddButton.addEventListener("click", function () {
   openModal(addCardModal);
 });
 
-window.addEventListener("keydown", function (event) {
-  if (event.key === "Escape") {
-    closeModal(profileEditModal);
-    closeModal(addCardModal);
-    closeModal(imagePreviewModal);
-  }
-});
-
-modalOverlay.addEventListener("click", function (evt) {
-  if (evt.target === modalOverlay) {
-    closeModal(modalOverlay.closest(".modal"));
-  }
-  // cant quite figure out how to get the addCardModal and imagePreviewModal to close by clicking. hlep would be appreciated
-  console.log("chick");
-});
+// modalOverlay.addEventListener("mousedown", function (evt) {
+//   if (evt.target === modalOverlay) {
+//     closeModal(modalOverlay.closest(".modal"));
+//   }
+//   // cant quite figure out how to get the addCardModal and imagePreviewModal to close by clicking. hlep would be appreciated
+//   console.log("chick");
+// });
 
 profileEditForm.addEventListener("submit", handleProfileEditSubmit);
 

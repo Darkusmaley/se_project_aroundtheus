@@ -10,6 +10,7 @@
 .card__image {
   object-fit: cover;
   min-height: 282px;
+  cursor: pointer;
 }
 
 .card__description {

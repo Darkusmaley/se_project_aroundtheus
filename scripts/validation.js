@@ -1,11 +1,8 @@
-const formInput = document.querySelectorAll(".modal__input");
-
 function showInputError(formEl, inputEl, { inputErrorClass, errorClass }) {
   const errorMessageEl = formEl.querySelector(`#${inputEl.id}-error`);
   inputEl.classList.add(inputErrorClass);
   errorMessageEl.textContent = inputEl.validationMessage;
   errorMessageEl.classList.add(errorClass);
-  console.log("works");
 }
 
 function hideInputerror(formEl, inputEl, { inputErrorClass, errorClass }) {
@@ -13,13 +10,11 @@ function hideInputerror(formEl, inputEl, { inputErrorClass, errorClass }) {
   inputEl.classList.remove(inputErrorClass);
   errorMessageEl.textContent = "";
   errorMessageEl.classList.remove(errorClass);
-  console.log("working");
 }
 
 function disableBtn(submitBtn, { inactiveButtonClass }) {
   submitBtn.classList.add(inactiveButtonClass);
   submitBtn.disabled = true;
-  return;
 }
 
 function enableBtn(submitBtn, { inactiveButtonClass }) {
@@ -50,7 +45,7 @@ function checkInputValidity(formEl, inputEl, options) {
 function setEventListeners(formEl, options) {
   const { inputSelector } = options;
   const inputEls = [...formEl.querySelectorAll(inputSelector)];
-  const submitBtn = formEl.querySelector(".modal__form-button");
+  const submitBtn = formEl.querySelector(options.submitButtonSelector);
 
   inputEls.forEach((inputEl) => {
     inputEl.addEventListener("input", (evt) => {
@@ -73,7 +68,7 @@ function enableValidation(options) {
 const config = {
   formSelector: ".modal__form",
   inputSelector: ".modal__input",
-  submitButtonSelector: ".modal__button",
+  submitButtonSelector: ".modal__form-button",
   inactiveButtonClass: "modal__button_disabled",
   inputErrorClass: "modal__input_type_error",
   errorClass: "modal__error_visible",
