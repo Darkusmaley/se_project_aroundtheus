@@ -67,6 +67,10 @@ const imagePreviewCaption = document.querySelector("#image-preview-caption");
 
 const closeButtons = document.querySelectorAll(".modal__close-button");
 
+// modal
+
+const modalOverlay = document.querySelector(".modal");
+
 //Event handlers
 
 function handleProfileEditSubmit(e) {
@@ -104,7 +108,7 @@ function getCardElement(cardData) {
   cardImageEl.addEventListener("click", () => {
     openModal(imagePreviewModal);
     imagePreview.src = cardData.link;
-    imagePreview.alt =cardData.name;
+    imagePreview.alt = cardData.name;
     imagePreviewCaption.textContent = cardData.name;
   });
 
@@ -146,6 +150,23 @@ profileEditBtn.addEventListener("click", function () {
 
 newCardAddButton.addEventListener("click", function () {
   openModal(addCardModal);
+});
+
+window.addEventListener("keydown", function (event) {
+  if (event.key === "Escape") {
+    closeModal(profileEditModal);
+    closeModal(addCardModal);
+    closeModal(imagePreviewModal);
+    
+  }
+});
+
+modalOverlay.addEventListener("click", function (evt) {
+  if(evt.target === modalOverlay){
+  closeModal(modalOverlay.closest(".modal"));
+  ;}
+// cant quite figure out how to get the addCardModal and imagePreviewModal to close by clicking. hlep would be appreciated
+  console.log("chick");
 });
 
 profileEditForm.addEventListener("submit", handleProfileEditSubmit);
