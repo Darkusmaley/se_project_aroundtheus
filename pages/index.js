@@ -1,3 +1,7 @@
+import Card from "../components/Card.js";
+
+import FormValidator from "../components/FormValidation.js";
+
 const initialCards = [
   {
     name: "Yosimite Valley",
@@ -25,8 +29,26 @@ const initialCards = [
   },
 ];
 
-//Elements
+//FormValidation
+const config = {
+  inputSelector: ".modal__input",
+  submitButtonSelector: ".modal__form-button",
+  inactiveButtonClass: "modal__button_disabled",
+  inputErrorClass: "modal__input_type_error",
+  errorClass: "modal__error_visible",
+};
 
+const editProfileFormValidation = new FormValidator(
+  config,
+  document.querySelector("#profile-edit-modal")
+);
+
+editProfileFormValidation.enableValidation();
+const addCardFormValidation = new FormValidator(
+  config,
+  document.querySelector("#add-card-form")
+);
+addCardFormValidation.enableValidation();
 // Profile edit modal
 const profileEditBtn = document.querySelector("#profile-edit-button");
 const profileEditModal = document.querySelector("#profile-edit-modal");
@@ -90,27 +112,29 @@ function handleAddCardSubmit(evt) {
 }
 
 //Functions
-
 function getCardElement(cardData) {
+  const cardTemplate =
+    document.querySelector("#template").content.firstElementChild;
+
   const cardElement = cardTemplate.cloneNode(true);
   const cardImageEl = cardElement.querySelector(".card__image");
   const cardTitleEl = cardElement.querySelector(".card__heading");
-  const likeButton = cardElement.querySelector(".card__like-button");
-  const cardDeleteButton = cardElement.querySelector("#card-delete-button");
-  cardDeleteButton.addEventListener("click", () => {
-    cardElement.remove();
-  });
+  //const likeButton = cardElement.querySelector(".card__like-button");
+  //const cardDeleteButton = cardElement.querySelector("#card-delete-button");
+  //cardDeleteButton.addEventListener("click", () => {
+  // cardElement.remove();
+  //});
 
-  likeButton.addEventListener("click", () => {
-    likeButton.classList.toggle("card__like-button_active");
-  });
+  //likeButton.addEventListener("click", () => {
+  //likeButton.classList.toggle("card__like-button_active");
+  //});
 
-  cardImageEl.addEventListener("click", () => {
-    openModal(imagePreviewModal);
-    imagePreview.src = cardData.link;
-    imagePreview.alt = cardData.name;
-    imagePreviewCaption.textContent = cardData.name;
-  });
+  // cardImageEl.addEventListener("click", () => {
+  //   openModal(imagePreviewModal);
+  //   imagePreview.src = cardData.link;
+  //   imagePreview.alt = cardData.name;
+  //   imagePreviewCaption.textContent = cardData.name;
+  // });
 
   cardTitleEl.textContent = cardData.name;
   cardImageEl.alt = cardData.name;
@@ -136,8 +160,14 @@ function fillProfileForm() {
 }
 
 function renderCard(cardData) {
-  const cardElement = getCardElement(cardData);
+  const cardElement = card.getView(cardData, "#template");
   cardListEl.prepend(cardElement);
+}
+
+function generateCard(cardData) {
+  const card = new Card(cardData, "#template");
+
+  return card.getView();
 }
 
 closeButtons.forEach((button) => {
@@ -169,16 +199,11 @@ newCardAddButton.addEventListener("click", function () {
   openModal(addCardModal);
 });
 
-// modalOverlay.addEventListener("mousedown", function (evt) {
-//   if (evt.target === modalOverlay) {
-//     closeModal(modalOverlay.closest(".modal"));
-//   }
-//   // cant quite figure out how to get the addCardModal and imagePreviewModal to close by clicking. hlep would be appreciated
-//   console.log("chick");
-// });
-
 profileEditForm.addEventListener("submit", handleProfileEditSubmit);
 
 cardAddForm.addEventListener("submit", handleAddCardSubmit);
 
-initialCards.forEach((cardData) => renderCard(cardData));
+initialCards.forEach((cardData) => {
+  const cardEl = generateCard(cardData);
+  cardListEl.prepend(cardEl);
+});
