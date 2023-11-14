@@ -52,9 +52,9 @@ addCardFormValidation.enableValidation();
 // Profile edit modal
 const profileEditBtn = document.querySelector("#profile-edit-button");
 const profileEditModal = document.querySelector("#profile-edit-modal");
-const profileEditCloseBtn = document.querySelector(
-  "#profile-edit-close-button"
-);
+// const profileEditCloseBtn = document.querySelector(
+//   "#profile-edit-close-button"
+// );
 
 // Profile
 const profileTitle = document.querySelector(".profile__title");
@@ -66,11 +66,11 @@ const profileEditForm = profileEditModal.querySelector(".modal__form");
 // New card modal
 const addCardModal = document.querySelector("#new-card-modal");
 const newCardAddButton = document.querySelector(".profile__add-button");
-const newCardCloseBtn = document.querySelector("#add-card-close-button");
+//const newCardCloseBtn = document.querySelector("#add-card-close-button");
 
 // Card
-const cardTitle = document.querySelector(".card__heading");
-const cardImage = document.querySelector(".card__image");
+//const cardTitle = document.querySelector(".card__heading");
+//const cardImage = document.querySelector(".card__image");
 const cardAddForm = addCardModal.querySelector("#add-card-form");
 const cardTitleInput = cardAddForm.querySelector("#card-title");
 const cardImageInput = cardAddForm.querySelector("#image-link");
@@ -80,10 +80,10 @@ const cardTemplate =
 
 // Image Preview Modal
 
-const imagePreviewModal = document.querySelector("#image-preview-modal");
-const imagePreviewCloseBtn = document.querySelector("#preview-close-button");
-const imagePreview = document.querySelector("#image-preview");
-const imagePreviewCaption = document.querySelector("#image-preview-caption");
+//const imagePreviewModal = document.querySelector("#image-preview-modal");
+//const imagePreviewCloseBtn = document.querySelector("#preview-close-button");
+//const imagePreview = document.querySelector("#image-preview");
+//const imagePreviewCaption = document.querySelector("#image-preview-caption");
 
 //Buttons
 
@@ -91,7 +91,7 @@ const closeButtons = document.querySelectorAll(".modal__close-button");
 
 // modal
 
-const modalOverlay = document.querySelector(".modal");
+//const modalOverlay = document.querySelector(".modal");
 
 //Event handlers
 
@@ -106,41 +106,14 @@ function handleAddCardSubmit(evt) {
   evt.preventDefault();
   const name = cardTitleInput.value;
   const link = cardImageInput.value;
-  renderCard({ name, link });
+  const card = generateCard({ name, link });
+  cardListEl.prepend(card);
   evt.target.reset();
+  addCardFormValidation._disableBtn();
   closeModal(addCardModal);
 }
 
 //Functions
-function getCardElement(cardData) {
-  const cardTemplate =
-    document.querySelector("#template").content.firstElementChild;
-
-  const cardElement = cardTemplate.cloneNode(true);
-  const cardImageEl = cardElement.querySelector(".card__image");
-  const cardTitleEl = cardElement.querySelector(".card__heading");
-  //const likeButton = cardElement.querySelector(".card__like-button");
-  //const cardDeleteButton = cardElement.querySelector("#card-delete-button");
-  //cardDeleteButton.addEventListener("click", () => {
-  // cardElement.remove();
-  //});
-
-  //likeButton.addEventListener("click", () => {
-  //likeButton.classList.toggle("card__like-button_active");
-  //});
-
-  // cardImageEl.addEventListener("click", () => {
-  //   openModal(imagePreviewModal);
-  //   imagePreview.src = cardData.link;
-  //   imagePreview.alt = cardData.name;
-  //   imagePreviewCaption.textContent = cardData.name;
-  // });
-
-  cardTitleEl.textContent = cardData.name;
-  cardImageEl.alt = cardData.name;
-  cardImageEl.src = cardData.link;
-  return cardElement;
-}
 
 function openModal(modal) {
   modal.classList.add("modal_opened");
@@ -159,14 +132,8 @@ function fillProfileForm() {
   profileDescriptionInput.value = profileDescription.textContent;
 }
 
-function renderCard(cardData) {
-  const cardElement = card.getView(cardData, "#template");
-  cardListEl.prepend(cardElement);
-}
-
 function generateCard(cardData) {
-  const card = new Card(cardData, "#template");
-
+  const card = new Card(cardData, "#template", openModal);
   return card.getView();
 }
 

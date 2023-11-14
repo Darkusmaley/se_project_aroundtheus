@@ -6,7 +6,7 @@ export default class Card {
     this._cardSelector = cardSelector;
   }
 
-  getView(data) {
+  getView() {
     this._cardElement = document
       .querySelector(this._cardSelector)
       .content.querySelector(".card")
@@ -15,15 +15,19 @@ export default class Card {
     const cardImageEl = this._cardElement.querySelector(".card__image");
     const cardTitleEl = this._cardElement.querySelector(".card__heading");
     const imagePreview = document.querySelector("#image-preview");
+    const imagePreviewCaption = document.querySelector(
+      "#image-preview-caption"
+    );
+    const imagePreviewModal = document.querySelector("#image-preview-modal");
 
     cardImageEl.src = this._link;
     cardImageEl.alt = this._name;
     cardTitleEl.textContent = this._name;
 
     cardImageEl.addEventListener("click", () => {
-      imagePreview.src = data.link;
-      imagePreview.alt = data.name;
-      imagePreviewCaption.textContent = cardData.name;
+      imagePreview.src = this._link;
+      imagePreview.alt = this._name;
+      imagePreviewCaption.textContent = this._name;
       this._openModal(imagePreviewModal);
     });
 
@@ -55,12 +59,5 @@ export default class Card {
   _deleteCardIcon() {
     this._cardElement.remove();
     this._cardElement = null;
-  }
-
-  generateCard(cardData) {
-    const card = new Card(cardData, "#template");
-    return card.getView();
-
-    return this._element;
   }
 }
