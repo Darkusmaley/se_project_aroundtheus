@@ -20,7 +20,7 @@ export default class Card {
     cardImageEl.alt = this._name;
     cardTitleEl.textContent = this._name;
 
-    cardImageEl.addEventListener("click", () => {  
+    cardImageEl.addEventListener("click", () => {
       imagePreview.src = data.link;
       imagePreview.alt = data.name;
       imagePreviewCaption.textContent = cardData.name;

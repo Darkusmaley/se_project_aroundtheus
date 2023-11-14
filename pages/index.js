@@ -42,8 +42,8 @@ const editProfileFormValidation = new FormValidator(
   config,
   document.querySelector("#profile-edit-modal")
 );
-
 editProfileFormValidation.enableValidation();
+
 const addCardFormValidation = new FormValidator(
   config,
   document.querySelector("#add-card-form")
