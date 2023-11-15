@@ -89,17 +89,17 @@ const closeButtons = document.querySelectorAll(".modal__close-button");
 // const addCardFormValidation = new FormValidator(config, cardAddForm);
 // addCardFormValidation.enableValidation();
 
-const formValidators = {}
+const formValidators = {};
 
 const enabledValidation = (config) => {
   const formList = Array.from(document.querySelectorAll(config.formSelector));
-  formList.forEach((formElement)=>{
-    const validator = new FormValidator(config,formElement);
+  formList.forEach((formElement) => {
+    const validator = new FormValidator(config, formElement);
     const formName = formElement.getAttribute("name");
     formValidators[formName] = validator;
     validator.enableValidation();
   });
-} ;
+};
 
 enabledValidation(config);
 //Event handlers
@@ -118,7 +118,7 @@ function handleAddCardSubmit(evt) {
   const card = generateCard({ name, link });
   cardListEl.prepend(card);
   evt.target.reset();
-  formValidators[cardAddForm.getAttribute('name')].disableBtn();
+  formValidators[cardAddForm.getAttribute("name")].disableBtn();
   closeModal(addCardModal);
 }
 
@@ -128,8 +128,7 @@ function openModal(modal) {
   modal.classList.add("modal_opened");
   document.addEventListener("keydown", closeModalByEsc);
   modal.addEventListener("mousedown", closeModalOnRemoteClick);
-  formValidators[profileEditForm.getAttribute('name')].resetValidation();
-  formValidators[cardAddForm.getAttribute('name')].resetValidation();
+ 
 }
 
 function closeModal(modal) {
@@ -166,7 +165,7 @@ function closeModalOnRemoteClick(evt) {
   }
 }
 
-function handleCardClick(name,link){
+function handleCardClick(name, link) {
   imagePreview.src = link;
   imagePreview.alt = name;
   imagePreviewCaption.textContent = name;
@@ -176,11 +175,14 @@ function handleCardClick(name,link){
 
 profileEditBtn.addEventListener("click", function () {
   openModal(profileEditModal);
+  formValidators[profileEditForm.getAttribute("name")].resetValidation();
+  
   fillProfileForm();
 });
 
 newCardAddButton.addEventListener("click", function () {
   openModal(addCardModal);
+  formValidators[cardAddForm.getAttribute("name")].resetValidation();
 });
 
 profileEditForm.addEventListener("submit", handleProfileEditSubmit);
