@@ -89,14 +89,14 @@ const closeButtons = document.querySelectorAll(".modal__close-button");
 // const addCardFormValidation = new FormValidator(config, cardAddForm);
 // addCardFormValidation.enableValidation();
 
-const FormValidators = {}
+const formValidators = {}
 
 const enabledValidation = (config) => {
   const formList = Array.from(document.querySelectorAll(config.formSelector));
   formList.forEach((formElement)=>{
     const validator = new FormValidator(config,formElement);
-    const formName = formElement.getAttribute("");
-    FormValidators[formName] = validator;
+    const formName = formElement.getAttribute("name");
+    formValidators[formName] = validator;
     validator.enableValidation();
   });
 } ;
@@ -108,8 +108,6 @@ function handleProfileEditSubmit(e) {
   e.preventDefault();
   profileTitle.textContent = profileTitleInput.value;
   profileDescription.textContent = profileDescriptionInput.value;
-  FormValidators[profileEditForm.getAttribute('name')].resetValidation();
-  FormValidators[cardAddForm.getAttribute('name')].resetValidation();
   closeModal(profileEditModal);
 }
 
@@ -120,7 +118,7 @@ function handleAddCardSubmit(evt) {
   const card = generateCard({ name, link });
   cardListEl.prepend(card);
   evt.target.reset();
-  FormValidators[cardAddForm.getAttribute('name')].disableBtn();
+  formValidators[cardAddForm.getAttribute('name')].disableBtn();
   closeModal(addCardModal);
 }
 
@@ -130,6 +128,8 @@ function openModal(modal) {
   modal.classList.add("modal_opened");
   document.addEventListener("keydown", closeModalByEsc);
   modal.addEventListener("mousedown", closeModalOnRemoteClick);
+  formValidators[profileEditForm.getAttribute('name')].resetValidation();
+  formValidators[cardAddForm.getAttribute('name')].resetValidation();
 }
 
 function closeModal(modal) {
