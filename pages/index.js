@@ -108,8 +108,8 @@ function handleProfileEditSubmit(e) {
   e.preventDefault();
   profileTitle.textContent = profileTitleInput.value;
   profileDescription.textContent = profileDescriptionInput.value;
-  FormValidators["add-card-form"].resetValidation();
-  FormValidators["profile-edit-form"].resetValidation();
+  FormValidators[profileEditForm.getAttribute('name')].resetValidation();
+  FormValidators[cardAddForm.getAttribute('name')].resetValidation();
   closeModal(profileEditModal);
 }
 
@@ -120,7 +120,7 @@ function handleAddCardSubmit(evt) {
   const card = generateCard({ name, link });
   cardListEl.prepend(card);
   evt.target.reset();
-  FormValidators["add-card-form"].disableBtn();
+  FormValidators[cardAddForm.getAttribute('name')].disableBtn();
   closeModal(addCardModal);
 }
 

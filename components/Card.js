@@ -20,7 +20,7 @@ export default class Card {
     this._deleteButton = this._cardElement.querySelector("#card-delete-button");
     const cardImageEl = this._cardElement.querySelector(".card__image");
     const cardTitleEl = this._cardElement.querySelector(".card__heading");
-    const imagePreview = document.querySelector("#image-preview");
+
 
 
     this._likeButton.addEventListener("click", () => {
