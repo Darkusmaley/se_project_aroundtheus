@@ -31,6 +31,7 @@ const initialCards = [
 
 //FormValidation
 const config = {
+  formSelector: ".modal__form",
   inputSelector: ".modal__input",
   submitButtonSelector: ".modal__form-button",
   inactiveButtonClass: "modal__button_disabled",
@@ -38,17 +39,6 @@ const config = {
   errorClass: "modal__error_visible",
 };
 
-const editProfileFormValidation = new FormValidator(
-  config,
-  document.querySelector("#profile-edit-modal")
-);
-editProfileFormValidation.enableValidation();
-
-const addCardFormValidation = new FormValidator(
-  config,
-  document.querySelector("#add-card-form")
-);
-addCardFormValidation.enableValidation();
 // Profile edit modal
 const profileEditBtn = document.querySelector("#profile-edit-button");
 const profileEditModal = document.querySelector("#profile-edit-modal");
@@ -61,7 +51,7 @@ const profileTitle = document.querySelector(".profile__title");
 const profileDescription = document.querySelector(".profile__description");
 const profileTitleInput = document.querySelector("#name");
 const profileDescriptionInput = document.querySelector("#description");
-const profileEditForm = profileEditModal.querySelector(".modal__form");
+const profileEditForm = document.forms["profile-edit-form"];
 
 // New card modal
 const addCardModal = document.querySelector("#new-card-modal");
@@ -70,8 +60,8 @@ const newCardAddButton = document.querySelector(".profile__add-button");
 
 // Card
 //const cardTitle = document.querySelector(".card__heading");
-//const cardImage = document.querySelector(".card__image");
-const cardAddForm = addCardModal.querySelector("#add-card-form");
+const cardImage = document.querySelector(".card__image");
+const cardAddForm = document.forms["add-card-form"];
 const cardTitleInput = cardAddForm.querySelector("#card-title");
 const cardImageInput = cardAddForm.querySelector("#image-link");
 const cardListEl = document.querySelector(".cards__list");
@@ -80,10 +70,10 @@ const cardTemplate =
 
 // Image Preview Modal
 
-//const imagePreviewModal = document.querySelector("#image-preview-modal");
+const imagePreviewModal = document.querySelector("#image-preview-modal");
 //const imagePreviewCloseBtn = document.querySelector("#preview-close-button");
-//const imagePreview = document.querySelector("#image-preview");
-//const imagePreviewCaption = document.querySelector("#image-preview-caption");
+const imagePreview = document.querySelector("#image-preview");
+const imagePreviewCaption = document.querySelector("#image-preview-caption");
 
 //Buttons
 
@@ -93,12 +83,33 @@ const closeButtons = document.querySelectorAll(".modal__close-button");
 
 //const modalOverlay = document.querySelector(".modal");
 
+// const editProfileFormValidation = new FormValidator(config, profileEditForm);
+// editProfileFormValidation.enableValidation();
+
+// const addCardFormValidation = new FormValidator(config, cardAddForm);
+// addCardFormValidation.enableValidation();
+
+const FormValidators = {}
+
+const enabledValidation = (config) => {
+  const formList = Array.from(document.querySelectorAll(config.formSelector));
+  formList.forEach((formElement)=>{
+    const validator = new FormValidator(config,formElement);
+    const formName = formElement.getAttribute("");
+    FormValidators[formName] = validator;
+    validator.enableValidation();
+  });
+} ;
+
+enabledValidation(config);
 //Event handlers
 
 function handleProfileEditSubmit(e) {
   e.preventDefault();
   profileTitle.textContent = profileTitleInput.value;
   profileDescription.textContent = profileDescriptionInput.value;
+  FormValidators["add-card-form"].resetValidation();
+  FormValidators["profile-edit-form"].resetValidation();
   closeModal(profileEditModal);
 }
 
@@ -109,7 +120,7 @@ function handleAddCardSubmit(evt) {
   const card = generateCard({ name, link });
   cardListEl.prepend(card);
   evt.target.reset();
-  addCardFormValidation._disableBtn();
+  FormValidators["add-card-form"].disableBtn();
   closeModal(addCardModal);
 }
 
@@ -133,7 +144,7 @@ function fillProfileForm() {
 }
 
 function generateCard(cardData) {
-  const card = new Card(cardData, "#template", openModal);
+  const card = new Card(cardData, "#template", handleCardClick);
   return card.getView();
 }
 
@@ -155,6 +166,12 @@ function closeModalOnRemoteClick(evt) {
   }
 }
 
+function handleCardClick(name,link){
+  imagePreview.src = link;
+  imagePreview.alt = name;
+  imagePreviewCaption.textContent = name;
+  openModal(imagePreviewModal);
+}
 // Event listeners
 
 profileEditBtn.addEventListener("click", function () {

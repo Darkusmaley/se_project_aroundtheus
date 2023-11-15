@@ -1,9 +1,9 @@
 export default class Card {
-  constructor(data, cardSelector, openModal) {
+  constructor(data, cardSelector, handleCardClick) {
     this._name = data.name;
     this._link = data.link;
-    this._openModal = openModal;
     this._cardSelector = cardSelector;
+    this._handleCardClick = handleCardClick;
   }
 
   getView() {
@@ -11,26 +11,6 @@ export default class Card {
       .querySelector(this._cardSelector)
       .content.querySelector(".card")
       .cloneNode(true);
-
-    const cardImageEl = this._cardElement.querySelector(".card__image");
-    const cardTitleEl = this._cardElement.querySelector(".card__heading");
-    const imagePreview = document.querySelector("#image-preview");
-    const imagePreviewCaption = document.querySelector(
-      "#image-preview-caption"
-    );
-    const imagePreviewModal = document.querySelector("#image-preview-modal");
-
-    cardImageEl.src = this._link;
-    cardImageEl.alt = this._name;
-    cardTitleEl.textContent = this._name;
-
-    cardImageEl.addEventListener("click", () => {
-      imagePreview.src = this._link;
-      imagePreview.alt = this._name;
-      imagePreviewCaption.textContent = this._name;
-      this._openModal(imagePreviewModal);
-    });
-
     this._setEventListeners();
     return this._cardElement;
   }
@@ -38,6 +18,10 @@ export default class Card {
   _setEventListeners() {
     this._likeButton = this._cardElement.querySelector(".card__like-button");
     this._deleteButton = this._cardElement.querySelector("#card-delete-button");
+    const cardImageEl = this._cardElement.querySelector(".card__image");
+    const cardTitleEl = this._cardElement.querySelector(".card__heading");
+    const imagePreview = document.querySelector("#image-preview");
+
 
     this._likeButton.addEventListener("click", () => {
       this._handleLIkeIcon();
@@ -47,9 +31,14 @@ export default class Card {
       this._deleteCardIcon();
     });
 
-    //  cardImageEl.addEventListener("click", () =>{
-    //   this.openModal(this);
-    //  })
+    cardImageEl.src = this._link;
+    cardImageEl.alt = this._name;
+    cardTitleEl.textContent = this._name;
+
+    cardImageEl.addEventListener("click", () => {
+      this._handleCardClick(this._name,this._link);
+  });
+    
   }
 
   _handleLIkeIcon() {

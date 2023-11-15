@@ -121,12 +121,12 @@
   cursor: default;
 }
 
-.modal__form-button_disabled {
+/* .modal__form-button_disabled {
   border: 1px solid #000000;
   background-color: transparent;
   color: #000000;
   cursor: default;
-}
+} */
 
 .modal__preview {
   max-width: 75vw;
