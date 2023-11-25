@@ -6,7 +6,7 @@ import PopupWithForm from "../components/PopupWithForm.js";
 import UserInfo from "../components/UserInfo.js";
 import "../pages/index.css";
 import { initialCards, config } from "../utils/constants.js";
-
+import aroundtheus from "./src/images/Aroundtheus.svg"
 //FormValidation
 
 // Profile edit modal
