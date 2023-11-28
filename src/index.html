@@ -11,16 +11,12 @@
   <body class="page">
     <div class="page__content">
       <header class="header page__section">
-        <img
-          id=" header-image"
-          class="header__image"
-          alt="AroundtheUS"
-        />
+        <img class="header__image" alt="AroundtheUS" id="AroundtheUS" />
       </header>
       <main class="content">
         <section class="profile page__section">
           <img
-            src="./images/jacques-cousteauavatar.jpg"
+            src="<%=require('./images/jacques-cousteauavatar.jpg')%>"
             alt="Jacques Cousteau"
             class="profile__image"
           />
@@ -139,7 +135,6 @@
           <h4 class="modal__image-preview-text" id="image-preview-caption"></h4>
         </div>
       </div>
-
 
       <template class="card-template" id="template">
         <li class="card">

@@ -8,15 +8,16 @@ import { closeButtons } from "../pages";
 
 export default class Popup {
   constructor({ popupSelector }) {
-    this._popupSelector = document.querySelector(popupSelector);
+    this._popupElement = document.querySelector(popupSelector);
   }
 
   open() {
-    this._popupSelector.classList.add(".modal_opened");
+    this._popupElement.classList.add(".modal_opened");
+    document.addEventListener("keydown", this._handleEscClose);
   }
 
   close() {
-    this._popupSelector.classList.remove(".modal_opened");
+    this._popupElement.classList.remove(".modal_opened");
     document.removeEventListener("keydown", (evt) => {
       this._handleEscClose(evt);
     });
@@ -30,13 +31,13 @@ export default class Popup {
 
   setEventListeners() {
     document.addEventListener("keydown", this._handleEscClose);
-    this._popupSelector.addEventListener("click", (evt) => {
-      if (evt.target === evt.currentTarget) {
+    this._popupElement.addEventListener("click", (evt) => {
+      if (evt.target === this._popupElement || evt.target.classList.contains(".modal__close-button")) {
         this.close;
       }
     });
 
-    const closeButton = this._popupSelector.querySelector(
+    const closeButton = this._popupElement.querySelector(
       ".modal__close-button"
     );
     closeButton.addEventListener("click", () => {

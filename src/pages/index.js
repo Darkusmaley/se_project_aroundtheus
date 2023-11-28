@@ -4,13 +4,16 @@ import FormValidator from "../components/FormValidation.js";
 import PopupWithImage from "../components/PopupWithImage.js";
 import PopupWithForm from "../components/PopupWithForm.js";
 import UserInfo from "../components/UserInfo.js";
-import "../pages/index.css";
+import "./index.css";
 import { initialCards, config } from "../utils/constants.js";
-import aroundtheus from "./src/images/Aroundtheus.svg"
-//FormValidation
+import aroundtheus from "../images/Aroundtheus.svg";
+//Image
+
+const aroundTheUS = document.getElementById("AroundtheUS");
+aroundTheUS.src = aroundtheus;
 
 // Profile edit modal
-//const profileEditBtn = document.querySelector("#profile-edit-button");
+const profileEditBtn = document.querySelector("#profile-edit-button");
 const profileEditModal = document.querySelector("#profile-edit-modal");
 // const profileEditCloseBtn = document.querySelector(
 //   "#profile-edit-close-button"
@@ -40,14 +43,14 @@ const cardListEl = document.querySelector(".cards__list");
 
 // Image Preview Modal
 
-//const imagePreviewModal = document.querySelector("#image-preview-modal");
+const imagePreviewModal = document.querySelector("#image-preview-modal");
 //const imagePreviewCloseBtn = document.querySelector("#preview-close-button");
-//const imagePreview = document.querySelector("#image-preview");
-//const imagePreviewCaption = document.querySelector("#image-preview-caption");
+const imagePreview = document.querySelector("#image-preview");
+const imagePreviewCaption = document.querySelector("#image-preview-caption");
 
 //Buttons
 
-//  const closeButtons = document.querySelectorAll(".modal__close-button");
+  const closeButtons = document.querySelectorAll(".modal__close-button");
 
 // modal
 
@@ -76,25 +79,27 @@ enabledValidation(config);
 
 function handleProfileEditSubmit(e) {
   e.preventDefault();
-  profileTitle.textContent = profileTitleInput.value;
-  profileDescription.textContent = profileDescriptionInput.value;
-  closeModal(profileEditModal);
+  // profileTitle.textContent = profileTitleInput.value;
+  // profileDescription.textContent = profileDescriptionInput.value;
+  // closeModal(profileEditModal);
+  profileInfo.setUserInfo();
+  profileFormPopup.close(profileEditModal);
 }
 
 function handleAddCardSubmit(evt) {
   evt.preventDefault();
-  const name = cardTitleInput.value;
-  const link = cardImageInput.value;
-  const card = generateCard({ name, link });
-  cardListEl.prepend(card);
-  evt.target.reset();
+  // const name = cardTitleInput.value;
+  // const link = cardImageInput.value;
+  // const card = generateCard({ name, link });
+  // cardListEl.prepend(card);
+  // evt.target.reset();
   formValidators[cardAddForm.getAttribute("name")].disableBtn();
-  closeModal(addCardModal);
+  addCardFormPopup.close(addCardModal);
 }
 
 //Functions
 
-// export function openModal(modal) {
+// function openModal(modal) {
 //   modal.classList.add("modal_opened");
 //   document.addEventListener("keydown", closeModalByEsc);
 //   modal.addEventListener("mousedown", closeModalOnRemoteClick);
@@ -135,12 +140,13 @@ function generateCard(cardData) {
 //   }
 // }
 
-// function handleCardClick(name, link) {
-//   imagePreview.src = link;
-//   imagePreview.alt = name;
-//   imagePreviewCaption.textContent = name;
-//   openModal(imagePreviewModal);
-// }
+function handleCardClick() {
+  // imagePreview.src = link;
+  // imagePreview.alt = name;
+  // imagePreviewCaption.textContent = name;
+  // openModal(imagePreviewModal);
+  imagePopupPreview.open(imagePreviewModal);
+}
 // Event listeners
 
 // profileEditBtn.addEventListener("click", function () {
@@ -173,6 +179,11 @@ const profileFormPopup = new PopupWithForm(
   handleProfileEditSubmit
 );
 profileFormPopup.setEventListeners();
+
+profileEditBtn.addEventListener("click", () => {
+  profileInfo.getUserInfo();
+  profileFormPopup.open();
+});
 
 const profileInfo = new UserInfo("#name", "#description");
 
