@@ -50,7 +50,7 @@
             type="button"
           ></button>
           <h2 class="modal__title">Edit profile</h2>
-          <form class="modal__form" name="profile-edit-form" novalidate>
+          <form class="modal__form" name="profile-edit-form" id="profile-edit-form" novalidate>
             <div class="modal__form-name">
               <input
                 type="text"
@@ -90,7 +90,7 @@
             type="button"
           ></button>
           <h2 class="modal__title">New place</h2>
-          <form class="modal__form" name="add-card-form" novalidate>
+          <form class="modal__form" name="add-card-form" id="add-card-form" novalidate>
             <div>
               <input
                 id="card-title"
@@ -116,7 +116,7 @@
               />
               <span class="modal__error" id="image-link-error"></span>
             </div>
-            <button class="modal__form-button" type="submit" disabled>
+            <button class="modal__form-button" id="modal__form-button" type="submit" disabled>
               Create
             </button>
           </form>

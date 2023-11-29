@@ -33,15 +33,15 @@ export default class Popup {
     document.addEventListener("keydown", this._handleEscClose);
     this._popupElement.addEventListener("click", (evt) => {
       if (evt.target === this._popupElement || evt.target.classList.contains(".modal__close-button")) {
-        this.close;
+        this.close();
       }
     });
 
-    const closeButton = this._popupElement.querySelector(
-      ".modal__close-button"
-    );
-    closeButton.addEventListener("click", () => {
-      this.close;
-    });
+    // const closeButton = this._popupElement.querySelector(
+    //   ".modal__close-button"
+    // );
+    // closeButton.addEventListener("click", () => {
+    //   this.close;
+    // });
   }
 }
