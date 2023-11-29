@@ -9,7 +9,7 @@ export default class PopupWithForm extends Popup {
 
   close() {
     this._popupform.reset();
-    super.close;
+    super.close();
   }
 
   _getInputValues() {

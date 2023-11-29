@@ -22,13 +22,13 @@ const profileEditBtn = document.querySelector("#profile-edit-button");
 // Profile
 //const profileTitle = document.querySelector(".profile__title");
 //const profileDescription = document.querySelector(".profile__description");
-//const profileTitleInput = document.querySelector("#name");
-//const profileDescriptionInput = document.querySelector("#description");
-//const profileEditForm = document.forms["profile-edit-form"];
+const profileTitleInput = document.querySelector("#name");
+const profileDescriptionInput = document.querySelector("#description");
+const profileEditForm = document.forms["profile-edit-form"];
 
 // New card modal
 const addCardModal = document.querySelector("#new-card-modal");
-//const newCardAddButton = document.querySelector(".profile__add-button");
+const newCardAddButton = document.querySelector(".profile__add-button");
 //const newCardCloseBtn = document.querySelector("#add-card-close-button");
 
 // Card
@@ -50,7 +50,7 @@ const imagePreviewCaption = document.querySelector("#image-preview-caption");
 
 //Buttons
 
-  export const closeButtons = document.querySelectorAll(".modal__close-button");
+export const closeButtons = document.querySelectorAll(".modal__close-button");
 
 // modal
 
@@ -77,23 +77,16 @@ const enabledValidation = (config) => {
 enabledValidation(config);
 //Event handlers
 
-function handleProfileEditSubmit(e) {
-  e.preventDefault();
-  // profileTitle.textContent = profileTitleInput.value;
-  // profileDescription.textContent = profileDescriptionInput.value;
-  // closeModal(profileEditModal);
-  profileInfo.setUserInfo();
+function handleProfileEditSubmit() {
+   profileInfo.setUserInfo();
   profileFormPopup.close();
 }
 
-function handleAddCardSubmit(evt) {
-  evt.preventDefault();
-  const name = cardTitleInput.value;
-  const link = cardImageInput.value;
+function handleAddCardSubmit() {
   const card = generateCard({ name, link });
   cardListEl.prepend(card);
-  evt.target.reset();
   formValidators[cardAddForm.getAttribute("name")].disableBtn();
+  addCardFormPopup.reset();
   addCardFormPopup.close();
 }
 
@@ -140,29 +133,14 @@ function generateCard(cardData) {
 //   }
 // }
 
-function handleCardClick() {
-  // imagePreview.src = link;
-  // imagePreview.alt = name;
-  // imagePreviewCaption.textContent = name;
-  // openModal(imagePreviewModal);
-  imagePopupPreview.open(imagePreviewModal);
+function handleCardClick(name, link) {
+  imagePopupPreview.open(name, link);
 }
 // Event listeners
 
-// profileEditBtn.addEventListener("click", function () {
-//   openModal(profileEditModal);
-//   formValidators[profileEditForm.getAttribute("name")].resetValidation();
+//profileEditForm.addEventListener("submit", handleProfileEditSubmit);
 
-//   fillProfileForm();
-// });
-
-// newCardAddButton.addEventListener("click", function () {
-//   openModal(addCardModal);
-// });
-
-// profileEditForm.addEventListener("submit", handleProfileEditSubmit);
-
-// cardAddForm.addEventListener("submit", handleAddCardSubmit);
+//cardAddForm.addEventListener("submit", handleAddCardSubmit);
 
 initialCards.forEach((cardData) => {
   const cardEl = generateCard(cardData);
@@ -180,10 +158,10 @@ const profileFormPopup = new PopupWithForm(
 );
 profileFormPopup.setEventListeners();
 
-profileEditBtn.addEventListener("click", () => {
-  profileInfo.getUserInfo();
-  profileFormPopup.open();
-});
+// profileEditBtn.addEventListener("click", () => {
+//   profileInfo.getUserInfo();
+//   profileFormPopup.open();
+// });
 
 const profileInfo = new UserInfo("#name", "#description");
 
@@ -192,3 +170,24 @@ const addCardFormPopup = new PopupWithForm(
   handleAddCardSubmit
 );
 addCardFormPopup.setEventListeners();
+
+newCardAddButton.addEventListener("click", function () {
+  addCardFormPopup.open();
+});
+
+profileEditBtn.addEventListener("click", function (e) {
+  const {name, job} = profileInfo.getUserInfo();
+  profileDescriptionInput.value = job;
+  profileTitleInput.value = name;
+  profileFormPopup.open();
+  formValidators[profileEditForm.getAttribute("name")].resetValidation();
+});
+
+profileEditForm.addEventListener("submit",
+  (e) => {
+    e.preventDefault();
+    const name = profileTitleInput.value;
+    const job = profileDescriptionInput.value;
+    profileInfo.setUserInfo(name, job);
+    profileFormPopup.close();
+  });
