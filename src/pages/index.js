@@ -32,11 +32,11 @@ const newCardAddButton = document.querySelector(".profile__add-button");
 //const newCardCloseBtn = document.querySelector("#add-card-close-button");
 
 // Card
-const cardTitle = document.querySelector(".card__heading");
-const cardImage = document.querySelector(".card__image");
+//const cardTitle = document.querySelector(".card__heading");
+//const cardImage = document.querySelector(".card__image");
 const cardAddForm = document.forms["add-card-form"];
-//const cardTitleInput = cardAddForm.querySelector("#card-title");
-//const cardImageInput = cardAddForm.querySelector("#image-link");
+const cardTitleInput = cardAddForm.querySelector("#card-title");
+const cardImageInput = cardAddForm.querySelector("#image-link");
 const cardListEl = document.querySelector(".cards__list");
 //const cardTemplate =
 //document.querySelector("#template").content.firstElementChild;
