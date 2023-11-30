@@ -21,8 +21,6 @@ export default class Card {
     const cardImageEl = this._cardElement.querySelector(".card__image");
     const cardTitleEl = this._cardElement.querySelector(".card__heading");
 
-
-
     this._likeButton.addEventListener("click", () => {
       this._handleLIkeIcon();
     });
@@ -36,9 +34,8 @@ export default class Card {
     cardTitleEl.textContent = this._name;
 
     cardImageEl.addEventListener("click", () => {
-      this._handleCardClick(this._name,this._link);
-  });
-    
+      this._handleCardClick(this._name, this._link);
+    });
   }
 
   _handleLIkeIcon() {

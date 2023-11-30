@@ -1,13 +1,3 @@
-import {
-  closeModalByEsc,
-  closeModalOnRemoteClick,
-  closeModal,
-  openModal,
-} from "../utils/utils.js";
-import { closeButtons } from "../pages";
-import { modalOverlay } from "../pages";
-
-
 export default class Popup {
   constructor({ popupSelector }) {
     this._popupElement = document.querySelector(popupSelector);
@@ -15,7 +5,9 @@ export default class Popup {
 
   open() {
     this._popupElement.classList.add("modal_opened");
-     document.addEventListener("keydown",(e)=>{ this._handleEscClose(e)});
+    document.addEventListener("keydown", (e) => {
+      this._handleEscClose(e);
+    });
   }
 
   close() {
@@ -23,7 +15,6 @@ export default class Popup {
     document.removeEventListener("keydown", () => {
       this._handleEscClose();
     });
-
   }
 
   _handleEscClose(e) {

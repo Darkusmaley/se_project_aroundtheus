@@ -6,7 +6,7 @@ export default class ImagePopup extends Popup {
     this._imagePreview = this._popupElement.querySelector("#image-preview");
   }
 
-  open(name,link) {
+  open(name, link) {
     this._imagePreview.src = link;
     this._imagePreview.alt = name;
     this._imagePreview.textContent = name;
