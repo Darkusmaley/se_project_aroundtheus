@@ -5,6 +5,8 @@ import {
   openModal,
 } from "../utils/utils.js";
 import { closeButtons } from "../pages";
+import { modalOverlay } from "../pages";
+
 
 export default class Popup {
   constructor({ popupSelector }) {

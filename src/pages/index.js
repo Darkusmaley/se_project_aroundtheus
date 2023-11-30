@@ -32,11 +32,11 @@ const newCardAddButton = document.querySelector(".profile__add-button");
 //const newCardCloseBtn = document.querySelector("#add-card-close-button");
 
 // Card
-//const cardTitle = document.querySelector(".card__heading");
-//const cardImage = document.querySelector(".card__image");
+const cardTitle = document.querySelector(".card__heading");
+const cardImage = document.querySelector(".card__image");
 const cardAddForm = document.forms["add-card-form"];
-const cardTitleInput = cardAddForm.querySelector("#card-title");
-const cardImageInput = cardAddForm.querySelector("#image-link");
+//const cardTitleInput = cardAddForm.querySelector("#card-title");
+//const cardImageInput = cardAddForm.querySelector("#image-link");
 const cardListEl = document.querySelector(".cards__list");
 //const cardTemplate =
 //document.querySelector("#template").content.firstElementChild;
@@ -54,7 +54,7 @@ export const closeButtons = document.querySelectorAll(".modal__close-button");
 
 // modal
 
-//const modalOverlay = document.querySelector(".modal");
+export const modalOverlay = document.querySelector(".modal");
 
 // const editProfileFormValidation = new FormValidator(config, profileEditForm);
 // editProfileFormValidation.enableValidation();
@@ -87,10 +87,12 @@ function handleProfileEditSubmit(evt) {
   profileFormPopup.close();
 }
 
-function handleAddCardSubmit() {
-  const name = cardTitleInput.values;
-  const link = cardImageInput.values;
-  const card = generateCard({ name, link });
+function handleAddCardSubmit(name, link) {
+  cardTitleInput.alt = name;
+  cardTitleInput.textContent = name;
+  cardImageInput.src = link;
+
+  const card = generateCard(name, link);
   cardListEl.prepend(card);
   formValidators[cardAddForm.getAttribute("name")].disableBtn();
   addCardFormPopup.close();
@@ -193,6 +195,6 @@ profileEditForm.addEventListener("submit", (e) => {
   e.preventDefault();
   const name = profileTitleInput.value;
   const job = profileDescriptionInput.value;
-  profileInfo.setUserInfo({name, job});
+  profileInfo.setUserInfo({ name, job });
   profileFormPopup.close();
 });
