@@ -6,6 +6,7 @@ import UserInfo from "../components/UserInfo.js";
 import "./index.css";
 import { initialCards, config } from "../utils/constants.js";
 import aroundtheus from "../images/Aroundtheus.svg";
+import Section from "../components/Section.js";
 
 const aroundTheUS = document.getElementById("AroundtheUS");
 aroundTheUS.src = aroundtheus;
@@ -26,11 +27,7 @@ const newCardAddButton = document.querySelector(".profile__add-button");
 
 const cardAddForm = document.forms["add-card-form"];
 
-const cardListEl = document.querySelector(".cards__list");
-
-//Buttons
-
-export const closeButtons = document.querySelectorAll(".modal__close-button");
+export const cardListEl = document.querySelector(".cards__list");
 
 // modal
 
@@ -54,23 +51,21 @@ enabledValidation(config);
 function handleProfileEditSubmit(inputValues) {
   profileInfo.setUserInfo({
     name: inputValues.name,
-    description: inputValues.description,
+    job: inputValues.description,
   });
 
-  console.log(profileInfo);
   profileFormPopup.close();
 }
 
 function handleAddCardSubmit(data) {
-  const card = generateCard(data);
-  cardListEl.prepend(card);
+  section.addItems(generateCard(data));
   formValidators[cardAddForm.getAttribute("name")].disableBtn();
   addCardFormPopup.close();
 }
 
 //Functions
 
-function generateCard(cardData) {
+export function generateCard(cardData) {
   const card = new Card(cardData, "#template", handleCardClick);
   return card.getView();
 }
@@ -78,11 +73,6 @@ function generateCard(cardData) {
 function handleCardClick(name, link) {
   imagePopupPreview.open(name, link);
 }
-
-initialCards.forEach((cardData) => {
-  const cardEl = generateCard(cardData);
-  cardListEl.prepend(cardEl);
-});
 
 // Class instances
 
@@ -115,10 +105,6 @@ profileEditBtn.addEventListener("click", function (e) {
   formValidators[profileEditForm.getAttribute("name")].resetValidation();
 });
 
-profileEditForm.addEventListener("submit", (e) => {
-  e.preventDefault();
-  const name = profileTitleInput.value;
-  const job = profileDescriptionInput.value;
-  profileInfo.setUserInfo({ name, job });
-  profileFormPopup.close();
-});
+const section = new Section({ initialCards, generateCard }, cardListEl);
+
+section.generateCards();
