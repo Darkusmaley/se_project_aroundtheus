@@ -99,7 +99,9 @@ profileEditBtn.addEventListener("click", function (e) {
   profileDescriptionInput.value = job;
   profileTitleInput.value = name;
   profileFormPopup.open();
-  formValidators[profileFormPopup.getFormName("profile-edit-form")].resetValidation();
+  formValidators[
+    profileFormPopup.getFormName("profile-edit-form")
+  ].resetValidation();
 });
 
 const section = new Section(
