@@ -67,6 +67,7 @@ function handleAddCardSubmit(data) {
 export function generateCard(cardData) {
   const card = new Card(cardData, "#template", handleCardClick);
   // return card.getView();
+  section.addItems(card.getView());
 }
 
 function handleCardClick(name, link) {
