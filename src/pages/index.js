@@ -112,4 +112,4 @@ const section = new Section(
   ".cards__list"
 );
 
-section.renderItems(cardListEl);
+section.renderItems();
