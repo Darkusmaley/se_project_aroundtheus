@@ -10,7 +10,6 @@ export default class ImagePopup extends Popup {
   open(name, link) {
     this._imagePreview.src = link;
     this._imagePreview.alt = name;
-    this._imagePreview.textContent = name;
     this._imageCaption.textContent = name;
     super.open();
   }

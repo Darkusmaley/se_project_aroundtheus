@@ -8,10 +8,6 @@ export default class PopupWithForm extends Popup {
     this._inputs = this._popupForm.querySelectorAll(".modal__input");
   }
 
-  close() {
-    super.close();
-  }
-
   _getInputValues() {
     this._inputValues = {};
     this._inputs.forEach(

@@ -27,11 +27,9 @@ const newCardAddButton = document.querySelector(".profile__add-button");
 
 const cardAddForm = document.forms["add-card-form"];
 
-export const cardListEl = document.querySelector(".cards__list");
+const cardListEl = document.querySelector(".cards__list");
 
 // modal
-
-export const modalOverlay = document.querySelector(".modal");
 
 const formValidators = {};
 
@@ -61,13 +59,14 @@ function handleAddCardSubmit(data) {
   section.addItems(generateCard(data));
   formValidators[cardAddForm.getAttribute("name")].disableBtn();
   addCardFormPopup.close();
+  cardAddForm.reset();
 }
 
 //Functions
 
 export function generateCard(cardData) {
   const card = new Card(cardData, "#template", handleCardClick);
-  return card.getView();
+  // return card.getView();
 }
 
 function handleCardClick(name, link) {
@@ -105,6 +104,9 @@ profileEditBtn.addEventListener("click", function (e) {
   formValidators[profileEditForm.getAttribute("name")].resetValidation();
 });
 
-const section = new Section({ initialCards, generateCard }, cardListEl);
+const section = new Section(
+  { items: initialCards, renderer: generateCard },
+  ".cards__list"
+);
 
-section.generateCards();
+section.renderItems(cardListEl);
