@@ -1,8 +1,6 @@
-import { initialCards } from "../utils/constants";
-
 export default class Section {
   constructor({ items, renderer }, containerSelector) {
-    this._containerSelector = document.querySelector(containerSelector);
+    this._containerElement = document.querySelector(containerSelector);
     this._items = items;
     this._renderer = renderer;
   }
@@ -14,6 +12,6 @@ export default class Section {
   }
 
   addItems(item) {
-    this._containerSelector.prepend(item);
+    this._containerElement.prepend(item);
   }
 }

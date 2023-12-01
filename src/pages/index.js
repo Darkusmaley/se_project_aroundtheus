@@ -29,8 +29,6 @@ const cardAddForm = document.forms["add-card-form"];
 
 const cardListEl = document.querySelector(".cards__list");
 
-// modal
-
 const formValidators = {};
 
 const enabledValidation = (config) => {
@@ -66,8 +64,7 @@ function handleAddCardSubmit(data) {
 
 export function generateCard(cardData) {
   const card = new Card(cardData, "#template", handleCardClick);
-  // return card.getView();
-  section.addItems(card.getView());
+  return card.getView();
 }
 
 function handleCardClick(name, link) {
@@ -106,7 +103,12 @@ profileEditBtn.addEventListener("click", function (e) {
 });
 
 const section = new Section(
-  { items: initialCards, renderer: generateCard },
+  {
+    items: initialCards,
+    renderer: (cardData) => {
+      section.addItems(generateCard(cardData));
+    },
+  },
   ".cards__list"
 );
 
