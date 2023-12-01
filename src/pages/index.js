@@ -55,9 +55,9 @@ function handleProfileEditSubmit(inputValues) {
 
 function handleAddCardSubmit(data) {
   section.addItems(generateCard(data));
-  formValidators[cardAddForm.getAttribute("name")].disableBtn();
+  formValidators[addCardFormPopup.getFormName("add-card-form")].disableBtn();
   addCardFormPopup.close();
-  cardAddForm.reset();
+  addCardFormPopup.resetForm();
 }
 
 //Functions
@@ -99,7 +99,7 @@ profileEditBtn.addEventListener("click", function (e) {
   profileDescriptionInput.value = job;
   profileTitleInput.value = name;
   profileFormPopup.open();
-  formValidators[profileEditForm.getAttribute("name")].resetValidation();
+  formValidators[profileFormPopup.getFormName("profile-edit-form")].resetValidation();
 });
 
 const section = new Section(
