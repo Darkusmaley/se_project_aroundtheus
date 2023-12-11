@@ -82,7 +82,7 @@ export default class Api {
     });
   }
 
-  updatedAvatar(url) {
+  updateAvatar(url) {
     return fetch(`${this._baseUrl}/users/me/avatar`, {
       method: "PATCH",
       header: this._header,
@@ -92,5 +92,9 @@ export default class Api {
     }).then((res) => {
       this._checkResponse(res);
     });
+  }
+
+  loadingPage() {
+    return Promise.all([this.getInitialCards(), this.loadUserInfo()]);
   }
 }

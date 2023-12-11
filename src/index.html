@@ -15,6 +15,7 @@
       </header>
       <main class="content">
         <section class="profile page__section">
+          <button type="button" class="profile__avatar-button" id="avatar-edit-button"></button>
           <img
             src="<%=require('./images/jacques-cousteauavatar.jpg')%>"
             alt="Jacques Cousteau"
@@ -151,7 +152,7 @@
         </div>
       </div>
 
-      <div class="modal" id="popup-delete-modal">
+      <div class="modal" id="card-delete-modal">
         <div class="modal__container">
           <button
             class="modal__close-button"
@@ -160,6 +161,44 @@
           ></button>
           <h2 class="modal__title">Are you sure?</h2>
           <button class="modal__form-button" type="submit">Yes</button>
+        </div>
+      </div>
+
+      <div class="modal" id="avatar-change-modal">
+        <div class="modal__container">
+          <button
+            class="modal__close-button"
+            id="avatar-change-close-button"
+            type="button"
+          ></button>
+          <h2 class="modal__title">Change profile picture</h2>
+          <form
+            class="modal__form"
+            name="avatar-change-form"
+            id="avatar-change-form"
+            novalidate
+          >
+            <div>
+              <input
+                id="avatar-link"
+                type="text"
+                name="link"
+                class="modal__input"
+                placeholder="dasda"
+                minlength="1"
+                required
+              />
+              <span class="modal__error" id="avatar-link-error"></span>
+            </div>
+
+            <button
+              class="modal__form-button"
+              id="modal__form-button"
+              type="submit"
+            >
+              Save
+            </button>
+          </form>
         </div>
       </div>
 

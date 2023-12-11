@@ -79,6 +79,24 @@
   cursor: pointer;
 }
 
+.profile__avatar-button {
+  position: absolute;
+  left: 47px;
+  top: 47px;
+  width: 26px;
+  height: 26px;
+  border: 0;
+  background-size: contain;
+  background: transparent url(../images/avatar-edit.svg) center no-repeat;
+  transition: 0.3s ease-in;
+  opacity: 0;
+}
+
+.profile__avatar-button:hover {
+  opacity: 1;
+  cursor: pointer;
+}
+
 @media screen and (max-width: 480px) {
   .profile {
     flex-direction: column;

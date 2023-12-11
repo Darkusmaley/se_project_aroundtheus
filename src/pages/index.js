@@ -7,13 +7,15 @@ import "./index.css";
 import { initialCards, config } from "../utils/constants.js";
 import aroundtheus from "../images/Aroundtheus.svg";
 import Section from "../components/Section.js";
+import Api from "../components/Api.js";
+import PopupConfirmation from "../components/PopupConfirmation.js";
 
 const aroundTheUS = document.getElementById("AroundtheUS");
 aroundTheUS.src = aroundtheus;
 
 // Profile edit modal
 const profileEditBtn = document.querySelector("#profile-edit-button");
-
+const profileAvatarBtn = document.querySelector("#avatar-edit-button");
 // Profile
 
 const profileTitleInput = document.querySelector("#name");
@@ -60,6 +62,21 @@ function handleAddCardSubmit(data) {
   addCardFormPopup.resetForm();
 }
 
+function handleAvatarChange(data) {
+  editAvatarFormPopup.setLoading(true);
+  api
+    .updateAvatar(data.avatar)
+    .then((res) => {
+      profileInfo.setUserInfo(res.avatar);
+    })
+    .catch((err) => {
+      console.log(err);
+    })
+    .finally(() => {
+      editAvatarFormPopup.setLoading(false, "Save");
+    });
+}
+
 //Functions
 
 export function generateCard(cardData) {
@@ -90,6 +107,13 @@ const addCardFormPopup = new PopupWithForm(
 );
 addCardFormPopup.setEventListeners();
 
+const editAvatarFormPopup = new PopupConfirmation("#avatar-change-modal");
+editAvatarFormPopup.setEventListeners();
+
+profileAvatarBtn.addEventListener("click", () => {
+  editAvatarFormPopup.open();
+});
+
 newCardAddButton.addEventListener("click", function () {
   addCardFormPopup.open();
 });
@@ -115,3 +139,11 @@ const section = new Section(
 );
 
 section.renderItems();
+
+const api = new Api({
+  baseUrl: "https://around-api.en.tripleten-services.com/v1",
+  headers: {
+    authorization: "c56e30dc-2883-4270-a59e-b2f7bae969c6",
+    "Content-Type": "application/json",
+  },
+});
