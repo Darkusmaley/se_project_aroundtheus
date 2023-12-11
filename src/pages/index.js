@@ -18,16 +18,16 @@ const profileEditBtn = document.querySelector("#profile-edit-button");
 
 const profileTitleInput = document.querySelector("#name");
 const profileDescriptionInput = document.querySelector("#description");
-const profileEditForm = document.forms["profile-edit-form"];
+//const profileEditForm = document.forms["profile-edit-form"];
 
 // New card modal
 const newCardAddButton = document.querySelector(".profile__add-button");
 
 // Card
 
-const cardAddForm = document.forms["add-card-form"];
+//const cardAddForm = document.forms["add-card-form"];
 
-const cardListEl = document.querySelector(".cards__list");
+//const cardListEl = document.querySelector(".cards__list");
 
 const formValidators = {};
 
