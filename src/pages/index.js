@@ -4,7 +4,7 @@ import PopupWithImage from "../components/PopupWithImage.js";
 import PopupWithForm from "../components/PopupWithForm.js";
 import UserInfo from "../components/UserInfo.js";
 import "./index.css";
-import { initialCards, config } from "../utils/constants.js";
+import { config } from "../utils/constants.js";
 import aroundtheus from "../images/Aroundtheus.svg";
 import Section from "../components/Section.js";
 import Api from "../components/Api.js";
@@ -16,6 +16,7 @@ aroundTheUS.src = aroundtheus;
 // Profile edit modal
 const profileEditBtn = document.querySelector("#profile-edit-button");
 const profileAvatarBtn = document.querySelector("#avatar-edit-button");
+const profileAvatar = document.querySelector(".profile__image");
 // Profile
 
 const profileTitleInput = document.querySelector("#name");
@@ -26,7 +27,7 @@ const profileDescriptionInput = document.querySelector("#description");
 const newCardAddButton = document.querySelector(".profile__add-button");
 
 // Card
-
+const cardDeleteBtn = document.querySelector("#card-delete-button");
 //const cardAddForm = document.forms["add-card-form"];
 
 //const cardListEl = document.querySelector(".cards__list");
@@ -47,45 +48,88 @@ enabledValidation(config);
 //Event handlers
 
 function handleProfileEditSubmit(inputValues) {
-  profileInfo.setUserInfo({
-    name: inputValues.name,
-    job: inputValues.description,
-  });
-
-  profileFormPopup.close();
+  profileFormPopup.setLoading(true);
+  console.log(inputValues);
+  api
+    .editProfileInfo(inputValues.name, inputValues.description)
+    .then((res) => {
+      profileInfo.setUserInfo(res);
+      profileFormPopup.close();
+    })
+    .catch((err) => {
+      console.log(err);
+    })
+    .finally(profileFormPopup.setLoading(false, "Save"));
 }
 
 function handleAddCardSubmit(data) {
-  section.addItems(generateCard(data));
-  formValidators[addCardFormPopup.getFormName("add-card-form")].disableBtn();
-  addCardFormPopup.close();
-  addCardFormPopup.resetForm();
+  api
+    .addCard(data)
+    .then((cardData) => {
+      section.addItems(generateCard(cardData));
+      formValidators[
+        addCardFormPopup.getFormName("add-card-form")
+      ].disableBtn();
+      addCardFormPopup.close();
+      addCardFormPopup.resetForm();
+    })
+    .catch((err) => {
+      console.log(err);
+    });
 }
 
 function handleAvatarChange(data) {
   editAvatarFormPopup.setLoading(true);
   api
-    .updateAvatar(data.avatar)
+    .updateAvatar(data.link)
     .then((res) => {
-      profileInfo.setUserInfo(res.avatar);
+      console.log(res);
+      profileAvatar.src = res.link;
+      profileAvatar.alt = res.name;
     })
     .catch((err) => {
       console.log(err);
     })
     .finally(() => {
-      editAvatarFormPopup.setLoading(false, "Save");
+      editAvatarFormPopup.close();
+      editAvatarFormPopup.resetForm();
+      editAvatarFormPopup.setLoading(false);
     });
+}
+
+function handleCardDelete(card) {
+  deleteCardConfirm.open();
+  deleteCardConfirm.setSubmitAction(() => {
+    deleteCardConfirm.setLoading(true);
+    api
+      .deleteCard(card.id)
+      .then(() => {
+        deleteCardConfirm.close();
+        card.deleteCard();
+      })
+      .catch((err) => {
+        console.log(err);
+      })
+      .finally(() => {
+        deleteCardConfirm.setLoading(false, "Yes");
+      });
+  });
+}
+
+function handleCardClick(name, link) {
+  imagePopupPreview.open(name, link);
 }
 
 //Functions
 
 export function generateCard(cardData) {
-  const card = new Card(cardData, "#template", handleCardClick);
+  const card = new Card(
+    cardData,
+    "#template",
+    handleCardClick,
+    handleCardDelete
+  );
   return card.getView();
-}
-
-function handleCardClick(name, link) {
-  imagePopupPreview.open(name, link);
 }
 
 // Class instances
@@ -93,30 +137,12 @@ function handleCardClick(name, link) {
 const imagePopupPreview = new PopupWithImage("#image-preview-modal");
 imagePopupPreview.setEventListeners();
 
+//Profile form
 const profileFormPopup = new PopupWithForm(
   "#profile-edit-modal",
   handleProfileEditSubmit
 );
 profileFormPopup.setEventListeners();
-
-const profileInfo = new UserInfo(".profile__title", ".profile__description");
-
-const addCardFormPopup = new PopupWithForm(
-  "#new-card-modal",
-  handleAddCardSubmit
-);
-addCardFormPopup.setEventListeners();
-
-const editAvatarFormPopup = new PopupConfirmation("#avatar-change-modal");
-editAvatarFormPopup.setEventListeners();
-
-profileAvatarBtn.addEventListener("click", () => {
-  editAvatarFormPopup.open();
-});
-
-newCardAddButton.addEventListener("click", function () {
-  addCardFormPopup.open();
-});
 
 profileEditBtn.addEventListener("click", function (e) {
   const { name, job } = profileInfo.getUserInfo();
@@ -128,9 +154,38 @@ profileEditBtn.addEventListener("click", function (e) {
   ].resetValidation();
 });
 
+//User info
+const profileInfo = new UserInfo(".profile__title", ".profile__description");
+
+//Add Card
+const addCardFormPopup = new PopupWithForm(
+  "#new-card-modal",
+  handleAddCardSubmit
+);
+addCardFormPopup.setEventListeners();
+
+newCardAddButton.addEventListener("click", function () {
+  addCardFormPopup.open();
+});
+
+//Avatar edit
+const editAvatarFormPopup = new PopupWithForm(
+  "#avatar-change-modal",
+  handleAvatarChange
+);
+editAvatarFormPopup.setEventListeners();
+
+profileAvatarBtn.addEventListener("click", () => {
+  editAvatarFormPopup.open();
+});
+
+//Card delete
+const deleteCardConfirm = new PopupConfirmation("#card-delete-modal");
+deleteCardConfirm.setEventListeners();
+
+Section;
 const section = new Section(
   {
-    items: initialCards,
     renderer: (cardData) => {
       section.addItems(generateCard(cardData));
     },
@@ -138,12 +193,20 @@ const section = new Section(
   ".cards__list"
 );
 
-section.renderItems();
-
+//API
 const api = new Api({
   baseUrl: "https://around-api.en.tripleten-services.com/v1",
   headers: {
-    authorization: "c56e30dc-2883-4270-a59e-b2f7bae969c6",
+    authorization: "525b4ade-ecb7-453a-b4ec-d9e0e572249f",
     "Content-Type": "application/json",
   },
 });
+
+api
+  .getInitialCards()
+  .then((data) => {
+    section.renderItems(data);
+  })
+  .catch((err) => {
+    console.log(err);
+  });

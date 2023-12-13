@@ -15,7 +15,11 @@
       </header>
       <main class="content">
         <section class="profile page__section">
-          <button type="button" class="profile__avatar-button" id="avatar-edit-button"></button>
+          <button
+            type="button"
+            class="profile__avatar-button"
+            id="avatar-edit-button"
+          ></button>
           <img
             src="<%=require('./images/jacques-cousteauavatar.jpg')%>"
             alt="Jacques Cousteau"
@@ -159,8 +163,11 @@
             id="card-delete-button"
             type="button"
           ></button>
-          <h2 class="modal__title">Are you sure?</h2>
-          <button class="modal__form-button" type="submit">Yes</button>
+          <form action="" class="modal__form" name="card-delete-form"
+          id="card-delete-form">
+            <h2 class="modal__title">Are you sure?</h2>
+            <button class="modal__form-button" type="submit">Yes</button>
+          </form>
         </div>
       </div>
 
