@@ -27,7 +27,7 @@ const profileDescriptionInput = document.querySelector("#description");
 const newCardAddButton = document.querySelector(".profile__add-button");
 
 // Card
-const cardDeleteBtn = document.querySelector("#card-delete-button");
+const cardDeleteBtn = document.querySelector("#card-deletion-submit-button");
 //const cardAddForm = document.forms["add-card-form"];
 
 //const cardListEl = document.querySelector(".cards__list");
@@ -83,9 +83,7 @@ function handleAvatarChange(data) {
   api
     .updateAvatar(data.link)
     .then((res) => {
-      console.log(res);
-      profileAvatar.src = res.link;
-      profileAvatar.alt = res.name;
+      profileInfo.setUserInfo(res);
     })
     .catch((err) => {
       console.log(err);
@@ -99,25 +97,23 @@ function handleAvatarChange(data) {
 
 function handleCardDelete(card) {
   deleteCardConfirm.open();
-  deleteCardConfirm.setSubmitAction(() => {
-    deleteCardConfirm.setLoading(true);
-    api
-      .deleteCard(card.id)
-      .then(() => {
-        deleteCardConfirm.close();
-        card.deleteCard();
-      })
-      .catch((err) => {
-        console.log(err);
-      })
-      .finally(() => {
-        deleteCardConfirm.setLoading(false, "Yes");
-      });
-  });
 }
 
 function handleCardClick(name, link) {
   imagePopupPreview.open(name, link);
+}
+
+function handleCardLike(item) {
+  if (!item.isliked) {
+    api
+      .likeCard(item.getId())
+      .then((res) => {
+        item.handleLikeStatus(res.isliked);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
 }
 
 //Functions
@@ -127,7 +123,8 @@ export function generateCard(cardData) {
     cardData,
     "#template",
     handleCardClick,
-    handleCardDelete
+    handleCardDelete,
+    handleCardLike
   );
   return card.getView();
 }
@@ -155,7 +152,11 @@ profileEditBtn.addEventListener("click", function (e) {
 });
 
 //User info
-const profileInfo = new UserInfo(".profile__title", ".profile__description");
+const profileInfo = new UserInfo(
+  ".profile__title",
+  ".profile__description",
+  ".profile__image"
+);
 
 //Add Card
 const addCardFormPopup = new PopupWithForm(
@@ -183,7 +184,22 @@ profileAvatarBtn.addEventListener("click", () => {
 const deleteCardConfirm = new PopupConfirmation("#card-delete-modal");
 deleteCardConfirm.setEventListeners();
 
-Section;
+cardDeleteBtn.addEventListener("submit", () => {
+  deleteCardConfirm.setLoading(true);
+  api
+    .deleteCard(card.id)
+    .then(() => {
+      deleteCardConfirm.close();
+      deleteCardConfirm.deleteCard()
+    })
+    .catch((err) => {
+      console.log(err);
+    })
+    .finally(() => {
+      deleteCardConfirm.setLoading(false, "Yes");
+    });
+});
+
 const section = new Section(
   {
     renderer: (cardData) => {
@@ -206,6 +222,15 @@ api
   .getInitialCards()
   .then((data) => {
     section.renderItems(data);
+  })
+  .catch((err) => {
+    console.log(err);
+  });
+
+api
+  .loadUserInfo()
+  .then((res) => {
+    profileInfo.setUserInfo(res);
   })
   .catch((err) => {
     console.log(err);

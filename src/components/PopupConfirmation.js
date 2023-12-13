@@ -26,4 +26,12 @@ export default class PopupConfirmation extends Popup {
     });
     super.setEventListeners();
   }
+
+  deleteCard(){
+    this._deleteButton.addEventListener(
+      "submit",
+      this._cardElement.remove(),
+      this._cardElement = null
+    );
+  }
 }
