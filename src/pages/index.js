@@ -97,20 +97,20 @@ function handleAvatarChange(data) {
 
 function handleCardDelete(card) {
   deleteCardConfirm.open();
-  console.log(card.id);
+
   deleteCardConfirm.setSubmitAction(() => {
-    console.log(card.id);
-    //deleteCardConfirm.setLoading(true);
+    deleteCardConfirm.setLoading(true);
     api
       .deleteCard(card.id)
       .then(() => {
         deleteCardConfirm.close();
+        card.deleteCard();
       })
       .catch((err) => {
         console.log(err);
       })
       .finally(() => {
-        // deleteCardConfirm.setLoading(false);
+        deleteCardConfirm.setLoading(false);
       });
   });
 }
@@ -120,6 +120,7 @@ function handleCardClick(name, link) {
 }
 
 function handleCardLike(item) {
+  console.log(item);
   if (!item.isliked) {
     api
       .likeCard(item.getId())

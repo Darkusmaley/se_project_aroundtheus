@@ -66,11 +66,8 @@ export default class Card {
     return this.id;
   }
 
-  // deleteCard() {
-  //   this._deleteButton.addEventListener(
-  //     "submit",
-  //     this._cardElement.remove(),
-  //     (this._cardElement = null)
-  //   );
-  // }
+  deleteCard() {
+    this._cardElement.remove();
+    this._cardElement = null;
+  }
 }
