@@ -15,23 +15,23 @@ export default class PopupConfirmation extends Popup {
     }
   }
 
-  setSubmitAction(action) {
-    this._handleFormSubmit = action;
+  setSubmitAction(handleFormSubmit) {
+    this._handleFormSubmit = handleFormSubmit;
   }
 
   setEventListeners() {
     this._popupForm.addEventListener("submit", (evt) => {
       evt.preventDefault();
-      this.setSubmitAction();
+      this._handleFormSubmit();
     });
     super.setEventListeners();
   }
 
-  deleteCard(){
-    this._deleteButton.addEventListener(
-      "submit",
-      this._cardElement.remove(),
-      this._cardElement = null
-    );
-  }
+  // deleteCard(){
+  //   this._deleteButton.addEventListener(
+  //     "submit",
+  //     this._cardElement.remove(),
+  //     this._cardElement = null
+  //   );
+//  }
 }

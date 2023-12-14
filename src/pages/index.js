@@ -97,6 +97,23 @@ function handleAvatarChange(data) {
 
 function handleCardDelete(card) {
   deleteCardConfirm.open();
+  console.log(card.id);
+  deleteCardConfirm.setSubmitAction(() => {
+    console.log(card.id);
+    deleteCardConfirm.setLoading(true);
+    api
+      .deleteCard(card.id)
+      .then(() => {
+        deleteCardConfirm.close();
+        deleteCardConfirm.deleteCard(card.id);
+      })
+      .catch((err) => {
+        console.log(err);
+      })
+      .finally(() => {
+        // deleteCardConfirm.setLoading(false);
+      });
+  });
 }
 
 function handleCardClick(name, link) {
@@ -183,22 +200,6 @@ profileAvatarBtn.addEventListener("click", () => {
 //Card delete
 const deleteCardConfirm = new PopupConfirmation("#card-delete-modal");
 deleteCardConfirm.setEventListeners();
-
-cardDeleteBtn.addEventListener("submit", () => {
-  deleteCardConfirm.setLoading(true);
-  api
-    .deleteCard(card.id)
-    .then(() => {
-      deleteCardConfirm.close();
-      deleteCardConfirm.deleteCard()
-    })
-    .catch((err) => {
-      console.log(err);
-    })
-    .finally(() => {
-      deleteCardConfirm.setLoading(false, "Yes");
-    });
-});
 
 const section = new Section(
   {
