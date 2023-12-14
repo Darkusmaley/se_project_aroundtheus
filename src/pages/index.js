@@ -100,12 +100,11 @@ function handleCardDelete(card) {
   console.log(card.id);
   deleteCardConfirm.setSubmitAction(() => {
     console.log(card.id);
-    deleteCardConfirm.setLoading(true);
+    //deleteCardConfirm.setLoading(true);
     api
       .deleteCard(card.id)
       .then(() => {
         deleteCardConfirm.close();
-        deleteCardConfirm.deleteCard(card.id);
       })
       .catch((err) => {
         console.log(err);
@@ -124,6 +123,15 @@ function handleCardLike(item) {
   if (!item.isliked) {
     api
       .likeCard(item.getId())
+      .then((res) => {
+        item.handleLikeStatus(res.isliked);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  } else {
+    api
+      .unlikeCard(item.getId())
       .then((res) => {
         item.handleLikeStatus(res.isliked);
       })
