@@ -31,10 +31,9 @@ export default class Card {
     const cardImageEl = this._cardElement.querySelector(".card__image");
     const cardTitleEl = this._cardElement.querySelector(".card__heading");
 
-    // this._likeButton.addEventListener("click", () => {
-    //   this._likeButton.classList.toggle("card__like-button_active");
-
-    // });
+    this._likeButton.addEventListener("click", () => {
+      this._likeButton.classList.toggle("card__like-button_active");
+    });
 
     this._deleteButton.addEventListener("click", () => {
       this._handleCardDelete(this);
