@@ -49,8 +49,10 @@ export default class Card {
     });
   }
 
-  handleLikestatus() {
-    this._likeButton.classList.toggle("card__like-button_active");
+  setLikes(isLiked) {
+    // this._likeButton.classList.toggle("card__like-button_active");
+    this.isLiked = isLiked; 
+    this._renderLikes(); 
   }
 
   _renderLikes() {

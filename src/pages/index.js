@@ -89,14 +89,15 @@ function handleAvatarChange(data) {
   api
     .updateAvatar(data.link)
     .then((res) => {
-      profileInfo.setUserInfo(res);
+      console.log;
+      profileInfo.setAvatar(res);
+      editAvatarFormPopup.close();
+      editAvatarFormPopup.resetForm();
     })
     .catch((err) => {
       console.log(err);
     })
     .finally(() => {
-      editAvatarFormPopup.close();
-      editAvatarFormPopup.resetForm();
       editAvatarFormPopup.setLoading(false);
     });
 }
@@ -126,11 +127,11 @@ function handleCardClick(name, link) {
 }
 
 function handleCardLike(card) {
-  if (card.isliked) {
+  if (!card.isliked) {
     api
       .likeCard(card.getId())
-      .then(() => {
-        card.handleLikestatus();
+      .then((res) => {
+        card.setLikes(res.isliked);
       })
       .catch((err) => {
         console.log(err);
@@ -138,8 +139,8 @@ function handleCardLike(card) {
   } else {
     api
       .unlikeCard(card.getId())
-      .then(() => {
-        card.handleLikestatus();
+      .then((res) => {
+        card.setLikes(res.isliked);
       })
       .catch((err) => {
         console.log(err);
@@ -246,6 +247,7 @@ api
   .loadUserInfo()
   .then((res) => {
     profileInfo.setUserInfo(res);
+    profileInfo.setAvatar(res);
   })
   .catch((err) => {
     console.log(err);
