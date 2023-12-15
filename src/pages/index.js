@@ -49,7 +49,7 @@ enabledValidation(config);
 
 function handleProfileEditSubmit(inputValues) {
   profileFormPopup.setLoading(true);
-  console.log(inputValues);
+
   api
     .editProfileInfo(inputValues.name, inputValues.description)
     .then((res) => {
@@ -119,22 +119,21 @@ function handleCardClick(name, link) {
   imagePopupPreview.open(name, link);
 }
 
-function handleCardLike(item) {
-  console.log(item);
-  if (!item.isliked) {
+function handleCardLike(card) {
+  if (!card.isliked) {
     api
-      .likeCard(item.getId())
+      .likeCard(card.getId())
       .then((res) => {
-        item.handleLikeStatus(res.isliked);
+        card.handleLikestatus(res);
       })
       .catch((err) => {
         console.log(err);
       });
   } else {
     api
-      .unlikeCard(item.getId())
+      .unlikeCard(card.getId())
       .then((res) => {
-        item.handleLikeStatus(res.isliked);
+        card.handleLikestatus(res.isliked);
       })
       .catch((err) => {
         console.log(err);

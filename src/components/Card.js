@@ -8,6 +8,7 @@ export default class Card {
   ) {
     this._name = data.name;
     this._link = data.link;
+    this.isLiked = data.isLiked;
     this.id = data._id;
     this._cardSelector = cardSelector;
     this._handleCardClick = handleCardClick;
@@ -32,7 +33,7 @@ export default class Card {
     const cardTitleEl = this._cardElement.querySelector(".card__heading");
 
     this._likeButton.addEventListener("click", () => {
-      this._likeButton.classList.toggle("card__like-button_active");
+      this._handleCardLike(this);
     });
 
     this._deleteButton.addEventListener("click", () => {
@@ -48,9 +49,8 @@ export default class Card {
     });
   }
 
-  handleLIkestatus(isLiked) {
-    this.isLiked = isLiked;
-    this._renderLikes();
+  handleLikestatus() {
+    this._likeButton.classList.toggle("card__like-button_active");
   }
 
   _renderLikes() {
