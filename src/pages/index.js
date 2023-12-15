@@ -59,10 +59,13 @@ function handleProfileEditSubmit(inputValues) {
     .catch((err) => {
       console.log(err);
     })
-    .finally(profileFormPopup.setLoading(false, "Save"));
+    .finally(() => {
+      profileFormPopup.setLoading(false);
+    });
 }
 
 function handleAddCardSubmit(data) {
+  addCardFormPopup.setLoading(true);
   api
     .addCard(data)
     .then((cardData) => {
@@ -75,6 +78,9 @@ function handleAddCardSubmit(data) {
     })
     .catch((err) => {
       console.log(err);
+    })
+    .finally(() => {
+      addCardFormPopup.setLoading(false);
     });
 }
 
@@ -120,11 +126,11 @@ function handleCardClick(name, link) {
 }
 
 function handleCardLike(card) {
-  if (!card.isliked) {
+  if (card.isliked) {
     api
       .likeCard(card.getId())
-      .then((res) => {
-        card.handleLikestatus(res);
+      .then(() => {
+        card.handleLikestatus();
       })
       .catch((err) => {
         console.log(err);
@@ -132,8 +138,8 @@ function handleCardLike(card) {
   } else {
     api
       .unlikeCard(card.getId())
-      .then((res) => {
-        card.handleLikestatus(res.isliked);
+      .then(() => {
+        card.handleLikestatus();
       })
       .catch((err) => {
         console.log(err);

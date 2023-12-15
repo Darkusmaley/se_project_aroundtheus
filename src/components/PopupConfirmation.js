@@ -5,13 +5,14 @@ export default class PopupConfirmation extends Popup {
     super({ popupSelector });
     this._popupForm = this._popupElement.querySelector(".modal__form");
     this._submitButton = this._popupForm.querySelector(".modal__form-button");
+    this._submitButtonText = this._submitButton.textContent;
   }
 
   setLoading(isLoading) {
     if (isLoading) {
       this._submitButton.textContent = "Saving..";
     } else {
-      this._submitButton.textContent = this._submitButton;
+      this._submitButton.textContent = this._submitButtonText;
     }
   }
 
@@ -26,12 +27,4 @@ export default class PopupConfirmation extends Popup {
     });
     super.setEventListeners();
   }
-
-  // deleteCard(){
-  //   this._deleteButton.addEventListener(
-  //     "submit",
-  //     this._cardElement.remove(),
-  //     this._cardElement = null
-  //   );
-//  }
 }

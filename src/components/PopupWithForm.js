@@ -7,6 +7,7 @@ export default class PopupWithForm extends Popup {
     this._popupForm = this._popupElement.querySelector(".modal__form");
     this._inputs = this._popupForm.querySelectorAll(".modal__input");
     this._saveButton = this._popupForm.querySelector(".modal__form-button");
+    this._saveButtonText = this._saveButton.textContent;
   }
 
   _getInputValues() {
@@ -37,7 +38,7 @@ export default class PopupWithForm extends Popup {
     if (isLoading == true) {
       this._saveButton.textContent = "Saving...";
     } else {
-      this._saveButton.textConetent = this._saveButtonText;
+      this._saveButton.textContent = this._saveButtonText;
     }
   }
 }
