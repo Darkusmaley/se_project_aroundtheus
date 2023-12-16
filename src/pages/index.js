@@ -127,11 +127,11 @@ function handleCardClick(name, link) {
 }
 
 function handleCardLike(card) {
-  if (!card.isliked) {
+  if (!card.isLiked) {
     api
       .likeCard(card.getId())
       .then((res) => {
-        card.setLikes(res.isliked);
+        card.setLikes(res.isLiked);
       })
       .catch((err) => {
         console.log(err);
@@ -140,7 +140,7 @@ function handleCardLike(card) {
     api
       .unlikeCard(card.getId())
       .then((res) => {
-        card.setLikes(res.isliked);
+        card.setLikes(res.isLiked);
       })
       .catch((err) => {
         console.log(err);
