@@ -50,9 +50,8 @@ export default class Card {
   }
 
   setLikes(isLiked) {
-    // this._likeButton.classList.toggle("card__like-button_active");
-    this.isLiked = isLiked; 
-    this._renderLikes(); 
+    this.isLiked = isLiked;
+    this._renderLikes();
   }
 
   _renderLikes() {

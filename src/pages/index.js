@@ -16,21 +16,14 @@ aroundTheUS.src = aroundtheus;
 // Profile edit modal
 const profileEditBtn = document.querySelector("#profile-edit-button");
 const profileAvatarBtn = document.querySelector("#avatar-edit-button");
-const profileAvatar = document.querySelector(".profile__image");
+
 // Profile
 
 const profileTitleInput = document.querySelector("#name");
 const profileDescriptionInput = document.querySelector("#description");
-//const profileEditForm = document.forms["profile-edit-form"];
 
 // New card modal
 const newCardAddButton = document.querySelector(".profile__add-button");
-
-// Card
-const cardDeleteBtn = document.querySelector("#card-deletion-submit-button");
-//const cardAddForm = document.forms["add-card-form"];
-
-//const cardListEl = document.querySelector(".cards__list");
 
 const formValidators = {};
 
